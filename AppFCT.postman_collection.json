@@ -1,0 +1,233 @@
+{
+	"info": {
+		"_postman_id": "d13f642e-1975-4070-a4ee-f93ed3a2df27",
+		"name": "AppFCT",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin123",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin@gmail.com",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "access_token",
+							"value": "q1VWdW06rgwqIicOKnebJeAjRZX3nEll",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:9000/auth",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add empresa",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "nombre",
+							"value": "empresaPrueba",
+							"type": "text"
+						},
+						{
+							"key": "direccion",
+							"value": "direccionPrueba",
+							"type": "text"
+						},
+						{
+							"key": "loc",
+							"value": "locPrueba",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:9000/empresas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"empresas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add tutor",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "nombre",
+							"value": "tutorPrueba",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "tutor@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "telefono",
+							"value": "633260696",
+							"type": "text"
+						},
+						{
+							"key": "empresa",
+							"value": "5c86501ca53f5861adde82fc",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:9000/tutors",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"tutors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get tutor",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:9000/tutors/5c86509fa53f5861adde82fd",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"tutors",
+						"5c86509fa53f5861adde82fd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add alumno",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "nombre",
+							"value": "pruebaAlumno16",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "alumno16@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "telefono",
+							"value": "655485321",
+							"type": "text"
+						},
+						{
+							"key": "tutor",
+							"value": "5c86509fa53f5861adde82fd",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:9000/alumnos/5c858e70072a180017a8e66d",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"alumnos",
+						"5c858e70072a180017a8e66d"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

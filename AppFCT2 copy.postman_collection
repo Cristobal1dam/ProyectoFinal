@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "d13f642e-1975-4070-a4ee-f93ed3a2df27",
-		"name": "AppFCT",
+		"_postman_id": "d946c21b-073b-4285-95c5-b96d5d8669a4",
+		"name": "AppFCT copy",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -119,22 +119,22 @@
 					"urlencoded": [
 						{
 							"key": "nombre",
-							"value": "tutorPrueba",
+							"value": "tutordeleteempresa2",
 							"type": "text"
 						},
 						{
 							"key": "email",
-							"value": "tutor@gmail.com",
+							"value": "2@gmail.com",
 							"type": "text"
 						},
 						{
 							"key": "telefono",
-							"value": "633260696",
+							"value": "6332606934",
 							"type": "text"
 						},
 						{
 							"key": "empresa",
-							"value": "5c86501ca53f5861adde82fc",
+							"value": "5c881657a44e000bcccd62b9",
 							"type": "text"
 						}
 					]
@@ -163,15 +163,14 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:9000/tutors/5c86509fa53f5861adde82fd",
+					"raw": "http://localhost:9000/tutors",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "9000",
 					"path": [
-						"tutors",
-						"5c86509fa53f5861adde82fd"
+						"tutors"
 					]
 				}
 			},
@@ -194,22 +193,22 @@
 					"urlencoded": [
 						{
 							"key": "nombre",
-							"value": "pruebaAlumno16",
+							"value": "alumnoDeleteEmpresa",
 							"type": "text"
 						},
 						{
 							"key": "email",
-							"value": "alumno16@gmail.com",
+							"value": "alumno42@gmail.com",
 							"type": "text"
 						},
 						{
 							"key": "telefono",
-							"value": "655485321",
+							"value": "6554853232",
 							"type": "text"
 						},
 						{
 							"key": "tutor",
-							"value": "5c86509fa53f5861adde82fd",
+							"value": "5c881660a44e000bcccd62ba",
 							"type": "text"
 						}
 					]
@@ -231,13 +230,20 @@
 		},
 		{
 			"name": "Registro",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {},
 				"url": {
 					"raw": ""
 				}
@@ -246,21 +252,46 @@
 		},
 		{
 			"name": "get user",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
 				"body": {
-					"mode": "raw",
-					"raw": ""
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "access_token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjODU4ZTcwMDcyYTE4MDAxN2E4ZTY2ZCIsImlhdCI6MTU1MjQxOTI2NX0.afBX6c82bMfe99Y7NR2MjqCRn4U_MZICBRRZRWQGmxs",
+							"type": "text"
+						}
+					]
 				},
 				"url": {
-					"raw": ""
+					"raw": "http://localhost:9000/users/5c858e70072a180017a8e66d",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"users",
+						"5c858e70072a180017a8e66d"
+					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Get Alumno",
+			"name": "Get Alumnos",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -269,7 +300,14 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": ""
+					"raw": "localhost:9000/alumnos",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"alumnos"
+					]
 				}
 			},
 			"response": []
@@ -299,13 +337,36 @@
 					"raw": ""
 				},
 				"url": {
+					"raw": "http://localhost:9000/alumnores",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"alumnores"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Empresa",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
 					"raw": ""
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Delete AlumnoRes",
+			"name": "Get empresas",
 			"request": {
 				"method": "GET",
 				"header": [],

@@ -37,6 +37,12 @@ empresaSchema.methods = {
   }
 }
 
+
+/*schema.pre('remove', async function() {
+  await 
+  await doMoreStuff();
+});*/
+
 const model = mongoose.model('Empresa', empresaSchema)
 
 export const schema = model.schema

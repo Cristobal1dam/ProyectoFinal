@@ -29,7 +29,7 @@ export const show = ({ params }, res, next) =>
     .then((alumno) => Alumno
     .findById(alumno.id)
     .populate('tutor')
-    .populate('empresa')
+    .populate({ path: 'tutor', populate: { path: 'empresa', select: 'nombre direccion loc' } })
     .exec() )
     .then(success(res))
     .catch(next)
@@ -106,4 +106,3 @@ await User.findById(userId)
 
 
 }
-

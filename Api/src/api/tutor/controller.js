@@ -44,3 +44,4 @@ export const destroy = ({ params }, res, next) =>
     .then((tutor) => tutor ? tutor.remove() : null)
     .then(success(res, 204))
     .catch(next)
+

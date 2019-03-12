@@ -1,5 +1,6 @@
 import { success, notFound } from '../../services/response/'
 import { User } from '.'
+import { Alumno } from '../alumno'
 
 export const index = ({ querymen: { query, select, cursor } }, res, next) =>
   User.count(query)
@@ -15,7 +16,13 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
 export const show = ({ params }, res, next) =>
   User.findById(params.id)
     .then(notFound(res))
-    .then((user) => user ? user.view() : null)
+    .then((user) => {
+   
+      return User.findById(user.id)
+      .populate('alumnos', 'nombre telefono visita empresa alumnoid')
+      .then(user => user.view())
+    })
+    
     .then(success(res))
     .catch(next)
 

@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { middleware as query } from 'querymen'
 import { middleware as body } from 'bodymen'
-import { create, index, show, update, destroy } from './controller'
+import { create, index, show, update, destroy, createVisita } from './controller'
 import { schema } from './model'
 export Visita, { schema } from './model'
 
@@ -19,9 +19,9 @@ const { titulo, fecha, realizada } = schema.tree
  * @apiError {Object} 400 Some parameters may contain invalid values.
  * @apiError 404 Visita not found.
  */
-router.post('/',
+router.post('/:id',
   body({ titulo, fecha, realizada }),
-  create)
+  createVisita)
 
 /**
  * @api {get} /visitas Retrieve visitas

@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">AppFCT</string>
+    <string name="Email">Email</string>
+    <string name="Pass">Contraseña</string>
+    <string name="Login">Login</string>
+    <string name="jwt_key">JWT_KEY</string>
+    <string name="sharedpreferences_filename">login</string>
+</resources>

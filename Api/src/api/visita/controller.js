@@ -1,5 +1,7 @@
 import { success, notFound } from '../../services/response/'
 import { Visita } from '.'
+import { Alumno } from '../alumno'
+import { AlumnoRes } from '../alumnoRes'
 
 export const create = ({ bodymen: { body } }, res, next) =>
   Visita.create(body)
@@ -39,3 +41,39 @@ export const destroy = ({ params }, res, next) =>
     .then((visita) => visita ? visita.remove() : null)
     .then(success(res, 204))
     .catch(next)
+
+export const createVisita = async ({ bodymen: { body }, params }, res, next) =>{
+
+      var varVisita;
+      var alumnoId = params.id;
+      
+      const crearVisita = await Visita.create(body)
+      .then((visita) => {
+        
+  
+        varVisita =  visita
+        return visita.view(true)
+      })
+      .then(success(res, 201))
+      .catch(next)
+
+      await AlumnoRes.findOne({ "alumnoid": params.id })
+       .then(notFound(res))
+       .then((alumnoRes) =>{
+        alumnoRes.visita = varVisita.fecha
+        alumnoRes.save()
+       }).then(success(res))
+       .catch(next)
+
+       await Alumno.findById(params.id)
+              .then(notFound(res))
+              .then((alumno) =>{
+                alumno.visitas.push(varVisita);
+                alumno.save()
+      
+              })
+                .then(success(res))
+                .catch(next)
+
+      
+      }    

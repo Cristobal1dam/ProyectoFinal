@@ -28,7 +28,8 @@ import {
   MatListModule,
   MatSlideToggleModule,
   MatSelectModule,
-  MatProgressBarModule } from '@angular/material';
+  MatProgressBarModule, 
+  MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {BidiModule} from '@angular/cdk/bidi';
 
@@ -104,10 +105,12 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PerfectScrollbarModule
   ],
   providers: [
-    {
-      provide: PERFECT_SCROLLBAR_CONFIG,
-      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
-    }
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS,
+      useValue: {hasBackdrop: true}},
+   {
+     provide: PERFECT_SCROLLBAR_CONFIG,
+     useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+   }
   ],
   bootstrap: [AppComponent]
 })

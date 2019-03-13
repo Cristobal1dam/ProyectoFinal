@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "d946c21b-073b-4285-95c5-b96d5d8669a4",
+		"_postman_id": "b69a1157-2ede-4962-9671-dd74c5d36901",
 		"name": "AppFCT copy",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -73,7 +73,7 @@
 					"urlencoded": [
 						{
 							"key": "nombre",
-							"value": "empresaPrueba",
+							"value": "LIBREEE",
 							"type": "text"
 						},
 						{
@@ -119,22 +119,22 @@
 					"urlencoded": [
 						{
 							"key": "nombre",
-							"value": "tutordeleteempresa2",
+							"value": "tutordeleteempresa87",
 							"type": "text"
 						},
 						{
 							"key": "email",
-							"value": "2@gmail.com",
+							"value": "9898@gmail.com",
 							"type": "text"
 						},
 						{
 							"key": "telefono",
-							"value": "6332606934",
+							"value": "63326069345",
 							"type": "text"
 						},
 						{
 							"key": "empresa",
-							"value": "5c881657a44e000bcccd62b9",
+							"value": "5c88e2d9086f4630c44db783",
 							"type": "text"
 						}
 					]
@@ -193,22 +193,22 @@
 					"urlencoded": [
 						{
 							"key": "nombre",
-							"value": "alumnoDeleteEmpresa",
+							"value": "alumnoDeleteTutor5",
 							"type": "text"
 						},
 						{
 							"key": "email",
-							"value": "alumno42@gmail.com",
+							"value": "123123@gmail.com",
 							"type": "text"
 						},
 						{
 							"key": "telefono",
-							"value": "6554853232",
+							"value": "655485456",
 							"type": "text"
 						},
 						{
 							"key": "tutor",
-							"value": "5c881660a44e000bcccd62ba",
+							"value": "5c88f2fc30283b3791ab8f25",
 							"type": "text"
 						}
 					]
@@ -230,9 +230,6 @@
 		},
 		{
 			"name": "Registro",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
 				"method": "GET",
 				"header": [
@@ -243,7 +240,10 @@
 						"type": "text"
 					}
 				],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": ""
 				}
@@ -270,21 +270,20 @@
 					"urlencoded": [
 						{
 							"key": "access_token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjODU4ZTcwMDcyYTE4MDAxN2E4ZTY2ZCIsImlhdCI6MTU1MjQxOTI2NX0.afBX6c82bMfe99Y7NR2MjqCRn4U_MZICBRRZRWQGmxs",
+							"value": "q1VWdW06rgwqIicOKnebJeAjRZX3nEll",
 							"type": "text"
 						}
 					]
 				},
 				"url": {
-					"raw": "http://localhost:9000/users/5c858e70072a180017a8e66d",
+					"raw": "http://localhost:9000/users",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "9000",
 					"path": [
-						"users",
-						"5c858e70072a180017a8e66d"
+						"users"
 					]
 				}
 			},
@@ -375,7 +374,68 @@
 					"raw": ""
 				},
 				"url": {
+					"raw": "localhost:9000/empresas",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"empresas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete tutor",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
 					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:9000/tutors/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"tutors",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "5c88f1f853a6d9372ed7d44d"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Empresas disp",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:9000/empresas/disp",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"empresas",
+						"disp"
+					]
 				}
 			},
 			"response": []

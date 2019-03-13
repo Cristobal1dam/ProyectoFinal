@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { middleware as query } from 'querymen'
 import { middleware as body } from 'bodymen'
-import { create, index, show, update, destroy } from './controller'
+import { create, index, show, update, destroy,empresasDisp } from './controller'
 import { schema } from './model'
 export Empresa, { schema } from './model'
 
@@ -35,6 +35,11 @@ router.post('/',
 router.get('/',
   query(),
   index)
+
+  
+
+  router.get('/disp',
+  empresasDisp)
 
 /**
  * @api {get} /empresas/:id Retrieve empresa

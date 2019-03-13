@@ -1,0 +1,32 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" fxLayoutGap="225px">
+  <h3>Crear empresa</h3>
+  <mat-dialog-content fxLayout="column" fxLayoutAlign="space-around">
+    <div class="pb-1">
+      <mat-form-field style="width: 100%">
+        <input matInput placeholder="Nombre" [formControl]="form.controls['nombre']">
+      </mat-form-field>
+      <small *ngIf="form.controls['nombre'].hasError('required') && form.controls['nombre'].touched" class="mat-text-warn">Nombre
+        requerido.</small>
+    </div>
+    <div class="pb-1">
+        <mat-form-field style="width: 100%">
+        <input matInput placeholder="Dirección" [formControl]="form.controls['direccion']">
+      </mat-form-field>
+      <small *ngIf="form.controls['direccion'].hasError('required') && form.controls['direccion'].touched" class="mat-text-warn">Dirección
+        requerido.</small>
+    </div>
+    <div class="pb-1">
+        <mat-form-field style="width: 100%">
+        <input matInput placeholder="Localización" [formControl]="form.controls['loc']">
+      </mat-form-field>
+      <small *ngIf="form.controls['loc'].hasError('required') && form.controls['loc'].touched" class="mat-text-warn">Localización
+        requerido.</small>
+    
+    </div>
+    <mat-dialog-actions fxLayout="row" fxLayoutAlign="space-around">
+      <button mat-raised-button (click)="closeDialog()">Cancelar</button>
+
+      <button mat-raised-button type="submit" [disabled]="!form.valid">Crear</button>
+    </mat-dialog-actions>
+  </mat-dialog-content>
+</form>

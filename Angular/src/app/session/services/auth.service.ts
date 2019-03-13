@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class AuthService {
 
-  constructor(private http: HttpClient,
+  constructor(private http: HttpClient
     ) { }
 
   login(loginDto: LoginDto): Observable<LoginResponse> {
@@ -28,8 +28,8 @@ export class AuthService {
         this.access_token = access_token;
       }
     }
-    const metaKey = new Metakey('UM9593f3klJI9q8MpJ1cSfigyGgnV0AL');
-    return this.http.post<LoginResponse>(`${environment.ApiUrl}/auth`, metaKey, requestOptions);
+    const metaKey = new Metakey('q1VWdW06rgwqIicOKnebJeAjRZX3nEll');
+    return this.http.post<LoginResponse>(`${environment.ApiUrl}auth`, metaKey, requestOptions);
   }
 
   setLoginData(loginResponse: LoginResponse) {

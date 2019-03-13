@@ -1,0 +1,44 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" fxLayoutGap="225px">
+    <h3>Crear tutor</h3>
+    <mat-dialog-content fxLayout="column" fxLayoutAlign="space-around">
+      <div class="pb-1">
+        <mat-form-field style="width: 100%">
+          <input matInput placeholder="Nombre" [formControl]="form.controls['nombre']">
+        </mat-form-field>
+        <small *ngIf="form.controls['nombre'].hasError('required') && form.controls['nombre'].touched" class="mat-text-warn">Nombre
+          requerido.</small>
+      </div>
+      <div class="pb-1">
+          <mat-form-field style="width: 100%">
+          <input matInput placeholder="Email" [formControl]="form.controls['email']">
+        </mat-form-field>
+        <small *ngIf="form.controls['email'].hasError('required') && form.controls['email'].touched" class="mat-text-warn">Email
+          requerido.</small>
+      </div>
+      <div class="pb-1">
+          <mat-form-field style="width: 100%">
+          <input matInput placeholder="Telefono" [formControl]="form.controls['telefono']">
+        </mat-form-field>
+        <small *ngIf="form.controls['telefono'].hasError('required') && form.controls['telefono'].touched" class="mat-text-warn">Teléfono
+          requerido.</small>
+      </div>
+
+      <div class="pb-1">
+          <mat-form-field style="width: 50%">
+            <mat-select placeholder="Empresas" [formControl]="form.controls['empresa']">
+              <mat-option *ngFor="let empresa of empresas" [value]="empresa.id">{{empresa.nombre}}
+      
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <small *ngIf="form.controls['empresa'].hasError('required') && form.controls['empresa'].touched"
+            class="mat-text-warn">Empresa requerida</small>
+        </div>
+
+      <mat-dialog-actions fxLayout="row" fxLayoutAlign="space-around">
+        <button mat-raised-button (click)="closeDialog()">Cancelar</button>
+  
+        <button mat-raised-button type="submit" [disabled]="!form.valid">Crear</button>
+      </mat-dialog-actions>
+    </mat-dialog-content>
+  </form>

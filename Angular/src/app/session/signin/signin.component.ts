@@ -34,7 +34,7 @@ export class SigninComponent implements OnInit {
       console.log('ROL: ' + localStorage.getItem('role'));
       console.log('TOKEN: ' + localStorage.getItem('token'));
       console.log('NAME: ' + localStorage.getItem('name'));
-      this.router.navigate ( [ '/dashboard' ] );
+      this.router.navigate ( [ '/empresas' ] );
 
     }, error => {
       console.log('Error en petición de login');

@@ -21,69 +21,8 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
     .then(success(res))
     .catch(next)
 
-    export const empresasDisp = async ( res, next) =>{
-    var listaEmpresas
-    var empresasNoDisp = []
-    var empresasDisp = []
-    
-    await Empresa.find()
-    .then(empresas =>{
-      console.log(empresas)
-      listaEmpresas = empresas
-    })
-    .catch(next)
 
-    await Tutor.find()
-    .then(tutores =>{
 
-      for (let index = 0; index < listaEmpresas.length; index++) {
-        const empresa = listaEmpresas[index];
-
-        for (let index = 0; index < tutores.length; index++) {
-          const tutor = tutores[index];
-          if(empresa.id == tutor.empresa)
-              empresasNoDisp.push(empresa)
- 
-        }
-        
-      }
-
-      for (let index = 0; index < empresasNoDisp.length; index++) {
-        const empresaNoDisp = empresasNoDisp[index];
-
-        for (let index = 0; index < listaEmpresas.length; index++) {
-          const empresa2 = listaEmpresas[index];
-
-          if(empresaNoDisp.id != empresa2.id)
-            empresasDisp.push(empresa2)
-        }
-          
-        }
-
-        return empresasDisp
-
-      
-
-    }).then(res,200)
-      .catch(next)
-
-    
-
-return empresasDisp
-  
-
-    }
-  
- /*   export const listaDisponible = ({ querymen: { query, select, cursor } }, res, next) =>
-    Empresa.count(query)
-      .then(count => Empresa.find(query, select, cursor)
-        .then((empresas) => ({
-          count,
-          rows: empresas.map((empresa) => empresa.view())
-        }))
-      )
-      .then(success(res))
-      .catch(next)*/
 
 export const show = ({ params }, res, next) =>
   Empresa.findById(params.id)
@@ -137,3 +76,56 @@ var alumnoVar
   .catch(next)
 
     }
+
+export const empresasDisp = async ( req, res, next) =>{
+      var listaEmpresas
+      var empresasNoDisp = []
+      var empresasDisp = []
+      
+      await Empresa.find()
+      .then(empresas =>{
+
+        listaEmpresas = empresas
+      })
+      .catch(next)
+  
+      await Tutor.find()
+      .then(tutores =>{
+  
+        for (let index = 0; index < listaEmpresas.length; index++) {
+
+          const empresa = listaEmpresas[index];
+
+  
+          for (let index = 0; index < tutores.length; index++) {
+            const tutor = tutores[index];
+            if(empresa.id == tutor.empresa)
+                empresasNoDisp.push(empresa)
+   
+          }
+          
+        }
+  
+        for (let index = 0; index < empresasNoDisp.length; index++) {
+          const empresaNoDisp = empresasNoDisp[index];
+  
+          for (let index = 0; index < listaEmpresas.length; index++) {
+            const empresa2 = listaEmpresas[index];
+  
+            if(empresaNoDisp.id != empresa2.id)
+              empresasDisp.push(empresa2)
+          }
+            
+          }
+          
+          if(empresasNoDisp.length == 0){
+            res.send(listaEmpresas)
+            }else
+          res.send(empresasDisp)
+          
+    
+      })
+        .catch(next)
+
+      }
+    

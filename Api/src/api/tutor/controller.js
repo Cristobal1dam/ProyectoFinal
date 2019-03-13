@@ -68,3 +68,59 @@ export const destroy = async ({ params }, res, next) =>{
   ).then(success(res, 204))
   .catch(next)
 }
+
+export const tutoresDisp = async ( req, res, next) =>{
+  var listaTutores
+  var tutoresNoDisp = []
+  var tutoresDisp = []
+  
+  await Tutor.find()
+  .then(tutores =>{
+console.log(tutores)
+    listaTutores = tutores
+  })
+  .catch(next)
+
+  await Alumno.find()
+  .then(alumnos =>{
+
+
+    for (let index = 0; index < listaTutores.length; index++) {
+
+      const tutor = listaTutores[index];
+
+
+      for (let index = 0; index < alumnos.length; index++) {
+        const alumno = alumnos[index];
+        if(tutor.id == alumno.tutor)
+            tutoresNoDisp.push(tutor)
+
+      }
+      
+    }
+
+    console.log(tutoresNoDisp)
+
+    for (let index = 0; index < tutoresNoDisp.length; index++) {
+      const tutorNoDisp = tutoresNoDisp[index];
+
+      for (let index = 0; index < listaTutores.length; index++) {
+        const tutor2 = listaTutores[index];
+   
+        if(tutorNoDisp.id != tutor2.id)
+        tutoresDisp.push(tutor2)
+
+      }
+        
+      }
+
+      if(tutoresNoDisp.length == 0){
+      res.send(listaTutores)
+      }else
+      res.send(tutoresDisp)
+      
+
+  })
+    .catch(next)
+
+  }

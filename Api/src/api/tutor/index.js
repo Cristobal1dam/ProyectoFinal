@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { middleware as query } from 'querymen'
 import { middleware as body } from 'bodymen'
-import { create, index, show, update, destroy } from './controller'
+import { create, index, show, update, destroy, tutoresDisp } from './controller'
 import { schema } from './model'
 export Tutor, { schema } from './model'
 
@@ -37,6 +37,9 @@ router.get('/',
   query(),
   index)
 
+  
+  router.get('/disp',
+  tutoresDisp)
 /**
  * @api {get} /tutors/:id Retrieve tutor
  * @apiName RetrieveTutor

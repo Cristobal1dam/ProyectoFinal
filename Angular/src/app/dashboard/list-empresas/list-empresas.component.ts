@@ -36,7 +36,7 @@ export class ListEmpresasComponent implements OnInit {
         }
       );
     }
-    openDialogNuevaEmpresa() {
+  openDialogNuevaEmpresa() {
       const dialogoNuevaEmpresa = this.dialog.open(AddEmpresaDialogComponent);
   
       dialogoNuevaEmpresa.afterClosed().subscribe(result => {

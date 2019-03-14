@@ -33,6 +33,13 @@ const MENUITEMS = [
     type: 'link',
     icon: 'supervisor_account'
   }
+  ,{
+    state: 'usuarios',
+    name: 'Usuarios',
+    type: 'link',
+    icon: 'perm_identity'
+    
+  }
 ];
 
 @Injectable()

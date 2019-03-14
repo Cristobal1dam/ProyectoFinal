@@ -3,6 +3,7 @@ import { TutorResponse } from 'src/app/interfaces/TutorResponse.interface';
 import { MatTableDataSource, MatPaginator, MatSort, MatDialog } from '@angular/material';
 import { TutorService } from '../services/tutor.service';
 import { AddTutorDialogComponent } from '../add-tutor-dialog/add-tutor-dialog.component';
+import { DeleteTutorDialogComponent } from '../delete-tutor-dialog/delete-tutor-dialog.component';
 
 @Component({
   selector: 'app-list-tutores',
@@ -34,24 +35,24 @@ export class ListTutoresComponent implements OnInit {
         }
       );
     }
-    openDialogNuevoTutor() {
+  openDialogNuevoTutor() {
       const dialogoNuevoTutor = this.dialog.open(AddTutorDialogComponent);
   
       dialogoNuevoTutor.afterClosed().subscribe(result => {
         this.getTutorList();
       });
   }
-    /*openDialogDeleteEmpresa(empresa: EmpresaResponse) {
-    const dialogDeleteEmpresa = this.dialog.open(DeleteEmpresaDialogComponent, {
-      data: { id: empresa.id,
-              nombre: empresa.nombre
+  openDialogDeleteTutor(tutor: TutorResponse) {
+    const dialogDeleteTutor = this.dialog.open(DeleteTutorDialogComponent, {
+      data: { id: tutor.id,
+              nombre: tutor.nombre
             }
+    });
+    dialogDeleteTutor.afterClosed().subscribe(result => {
+      this.getTutorList();
+    });
+  }
 
-    });
-    dialogDeleteEmpresa.afterClosed().subscribe(result => {
-      this.getEmpresasList();
-    });
-  }*/
     applyFilter(filterValue: string) {
       this.dataSource.filter = filterValue.trim().toLowerCase();
     

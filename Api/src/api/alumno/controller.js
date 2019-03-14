@@ -15,7 +15,7 @@ export const create = ({ bodymen: { body } }, res, next) =>
 export const index = ({ querymen: { query, select, cursor } }, res, next) =>
   Alumno.count(query)
     .then(count => Alumno.find(query, select, cursor)
-    .populate('tutor', 'nombre')
+    .populate('tutor')
       .then((alumnos) => ({
         count,
         rows: alumnos.map((alumno) => alumno.view())
@@ -45,22 +45,39 @@ export const update = ({ bodymen: { body }, params }, res, next) =>
 
 export const destroy = async ({ params }, res, next) =>{
   var alumnoVar
+  var alumnoResVar
+  var alumnosId
   await Alumno.findById(params.id)
     .then(notFound(res))
     .then((alumno) =>{
        alumnoVar = alumno
        alumno ? alumno.remove() : null
       })
-    .then(success(res, 204))
+    .then(success(res, 200))
     .catch(next)
 
-    await AlumnoRes.findOne({'alumnoid' : alumnoVar.id})
+  await AlumnoRes.findOne({'alumnoid' : alumnoVar.id})
     .then(alumnoRes =>{
-      return alumnoRes ? alumnoRes.remove() : null
+      alumnoResVar = alumnoRes
+      alumnoRes ? alumnoRes.remove() : null
     }
-    ).then(success(res, 204))
+    ).then(success(res, 200))
     .catch(next)
-}
+
+  await User.findOne({'alumnos': alumnoResVar.id})
+  .then(user => {
+
+      for (let index = 0; index < user.alumnos.length; index++) {
+        const element = user.alumnos[index];
+        if (element == alumnoResVar.id) {
+          user.alumnos.splice(index, 1);
+        }
+    }
+    return user.save()
+      })
+    .then(success(res, 204))
+    .catch(next)
+    }
 
 export const createAlumno = async ({ bodymen: { body }, params }, res, next) =>{
 var idAlumno;

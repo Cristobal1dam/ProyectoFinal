@@ -19,7 +19,7 @@ export const show = ({ params }, res, next) =>
     .then((user) => {
    
       return User.findById(user.id)
-      .populate('alumnos', 'nombre telefono visita empresa alumnoid')
+      .populate('alumnos')
       .then(user => user.view())
     })
     

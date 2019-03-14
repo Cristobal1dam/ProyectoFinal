@@ -30,7 +30,7 @@ export class AddTutorDialogComponent implements OnInit {
       empresa: ['' , Validators.compose ( [ Validators.required ] )]
 
     } );
-    this.getAllEmpresas();
+    this.getAllEmpresasDisp();
 
   }
   closeDialog(){
@@ -49,9 +49,9 @@ export class AddTutorDialogComponent implements OnInit {
       });
   }
 
-  getAllEmpresas(){
-    this.empresaService.getAll().subscribe(empresaList => {
-       this.empresas = empresaList.rows;
+  getAllEmpresasDisp(){
+    this.empresaService.getAllDisp().subscribe(empresaList => {
+       this.empresas = empresaList;
     
       }, error =>{
         console.log(error);

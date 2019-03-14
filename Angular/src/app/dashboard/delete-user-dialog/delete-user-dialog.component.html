@@ -1,0 +1,14 @@
+<div class="text-xs-center pb-1" fxLayoutGap="225px">
+  <h3>Escriba "BORRAR" para eliminar el usuario {{data.nombre}}</h3>
+</div>
+<div fxLayout="column" fxLayoutAlign="space-around">
+  <div fxLayoutAlign="space-around">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Clave" [(ngModel)]="intBorrar">
+    </mat-form-field>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="space-around">
+    <button mat-raised-button color="primary" (click)="closeDialog()">Cancelar</button>
+    <button mat-raised-button color="primary" *ngIf="comprobarBorrar()" (click)="deleteUsuario()">Eliminar</button>
+  </div>
+</div>

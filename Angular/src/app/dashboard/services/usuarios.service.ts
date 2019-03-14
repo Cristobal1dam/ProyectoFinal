@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { ListApiResponse } from 'src/app/interfaces/List-api-response.interface';
-import { EmpresaResponse } from 'src/app/interfaces/EmpresaResponse.interface';
-import { EmpresaDispResponse } from 'src/app/interfaces/EmpresaDispResponse.interface';
-import { Observable } from 'rxjs';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { EmpresaDto } from 'src/app/dto/EmpresaDto.dto';
+import { ListApiResponse } from 'src/app/interfaces/List-api-response.interface';
+import { Observable } from 'rxjs';
+import { UserDto } from 'src/app/dto/UserDto.dto';
+import { UsuarioResponse } from 'src/app/interfaces/UsuarioResponse.interface';
+import { AlumnoListResponse } from 'src/app/interfaces/AlumnoListResponse.interface';
 
 @Injectable({
   providedIn: 'root'
 })
-export class EmpresaService {
+export class UsuariosService {
 
   constructor(private http: HttpClient) { }
 
@@ -22,29 +22,20 @@ export class EmpresaService {
       })
     };
   
-    return this.http.get<ListApiResponse>(`${environment.ApiUrl}empresas`, requestOptions);
+    return this.http.get<ListApiResponse>(`${environment.ApiUrl}users`, requestOptions);
   }
 
-  getAllDisp(): Observable<EmpresaResponse[]> {
+  create(user : UserDto): Observable<UsuarioResponse> {
     const requestOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
       })
     };
-  
-    return this.http.get<EmpresaResponse[]>(`${environment.ApiUrl}empresas/disp`, requestOptions);
-  }
 
-  create(empresa : EmpresaDto): Observable<EmpresaResponse> {
-    const requestOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      })
-    };
+    user.access_token = 'q1VWdW06rgwqIicOKnebJeAjRZX3nEll'
   
-    return this.http.post<EmpresaResponse>(`${environment.ApiUrl}empresas`,empresa, requestOptions);
+    return this.http.post<UsuarioResponse>(`${environment.ApiUrl}users`,user, requestOptions);
   }
 
   delete(id): Observable<any> {
@@ -54,6 +45,19 @@ export class EmpresaService {
         'Access-Control-Allow-Origin': '*'
       })
     };
-    return this.http.delete(`${environment.ApiUrl}empresas/${id}`, requestOptions);
+    return this.http.delete(`${environment.ApiUrl}users/${id}`, requestOptions);
   }
+
+  getAlumnoList(id): Observable<AlumnoListResponse> {
+    const requestOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      })
+    };
+  
+    return this.http.get<AlumnoListResponse>(`${environment.ApiUrl}users/${id}`, requestOptions);
+  }
+
+
 }

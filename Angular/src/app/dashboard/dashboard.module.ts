@@ -12,6 +12,11 @@ import { AddEmpresaDialogComponent } from './add-empresa-dialog/add-empresa-dial
 import { DeleteEmpresaDialogComponent } from './delete-empresa-dialog/delete-empresa-dialog.component';
 import { ListTutoresComponent } from './list-tutores/list-tutores.component';
 import { AddTutorDialogComponent } from './add-tutor-dialog/add-tutor-dialog.component';
+import { DeleteTutorDialogComponent } from './delete-tutor-dialog/delete-tutor-dialog.component';
+import { ListUsusariosComponent } from './list-ususarios/list-ususarios.component';
+import { AddUserDialogComponent } from './add-user-dialog/add-user-dialog.component';
+import { DeleteUserDialogComponent } from './delete-user-dialog/delete-user-dialog.component';
+import { ListAlumnosComponent } from './list-alumnos/list-alumnos.component';
 
 @NgModule({
   imports: [
@@ -37,11 +42,24 @@ import { AddTutorDialogComponent } from './add-tutor-dialog/add-tutor-dialog.com
   entryComponents: [
     AddEmpresaDialogComponent,
     DeleteEmpresaDialogComponent,
-    AddTutorDialogComponent
+    AddTutorDialogComponent,
+    DeleteTutorDialogComponent,
+    AddUserDialogComponent,
+    DeleteUserDialogComponent
    
   ],
  
-  declarations: [ DashboardComponent,ListEmpresasComponent,AddEmpresaDialogComponent, DeleteEmpresaDialogComponent, ListTutoresComponent, AddTutorDialogComponent ]
+  declarations: [ DashboardComponent,
+                  ListEmpresasComponent,
+                  AddEmpresaDialogComponent,
+                  DeleteEmpresaDialogComponent,
+                  ListTutoresComponent,
+                  AddTutorDialogComponent,
+                  DeleteTutorDialogComponent,
+                  ListUsusariosComponent,
+                  AddUserDialogComponent,
+                  DeleteUserDialogComponent,
+                  ListAlumnosComponent ]
 })
 
 export class DashboardModule {}

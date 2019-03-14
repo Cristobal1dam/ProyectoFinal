@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose'
+import moment from 'moment'
 
 const alumnoResSchema = new Schema({
   nombre: {
@@ -26,13 +27,16 @@ const alumnoResSchema = new Schema({
 })
 
 alumnoResSchema.methods = {
+  
   view (full) {
+    moment.locale('es')
     const view = {
       // simple view
+      
       id: this.id,
       nombre: this.nombre,
       telefono: this.telefono,
-      visita: this.visita,
+      visita: this.moment(this.visita).format('D MMM h:mm a'),
       empresa: this.empresa,
       alumnoid: this.alumnoid,
       createdAt: this.createdAt,

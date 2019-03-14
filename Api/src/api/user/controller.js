@@ -1,6 +1,7 @@
 import { success, notFound } from '../../services/response/'
 import { User } from '.'
 import { Alumno } from '../alumno'
+import {alumnoRes} from '../alumnoRes'
 
 export const index = ({ querymen: { query, select, cursor } }, res, next) =>
   User.count(query)

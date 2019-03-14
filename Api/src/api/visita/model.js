@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose'
+import moment from 'moment'
 
 const visitaSchema = new Schema({
   titulo: {
@@ -20,12 +21,15 @@ const visitaSchema = new Schema({
 })
 
 visitaSchema.methods = {
+
   view (full) {
+    moment.locale('es')
     const view = {
+   
       // simple view
       id: this.id,
       titulo: this.titulo,
-      fecha: this.fecha,
+      fecha:  this.moment(this.fecha).format('D MMM h:mm a'),
       realizada: this.realizada,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt

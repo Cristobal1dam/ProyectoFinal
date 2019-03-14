@@ -6,6 +6,8 @@ import api from './api'
 
 const app = express(apiRoot, api)
 const server = http.createServer(app)
+var moment = require('moment');
+
 
 mongoose.connect(mongo.uri)
 mongoose.Promise = Promise

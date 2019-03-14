@@ -4,6 +4,7 @@ import { AlumnoResponse } from 'src/app/interfaces/AlumnoResponse.interface';
 import { UsuariosService } from '../services/usuarios.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AlumnoListResponse } from 'src/app/interfaces/AlumnoListResponse.interface';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-list-alumnos',
@@ -11,6 +12,7 @@ import { AlumnoListResponse } from 'src/app/interfaces/AlumnoListResponse.interf
   styleUrls: ['./list-alumnos.component.scss']
 })
 export class ListAlumnosComponent implements OnInit {
+  
 
   displayedColumns: string[] = ['nombre','telefono', 'empresa','visita','acciones'];
 
@@ -30,14 +32,16 @@ export class ListAlumnosComponent implements OnInit {
   }
 
   getAlumnosList() {
-  
-
+    moment.locale('es')
     this.route.queryParams.subscribe(params => {
       this.idUsuario = params["id"];
   });
-  console.log("ID USUARIO " + this.idUsuario )
+
     this.usuarioService.getAlumnoList(this.idUsuario).subscribe(alumnoList => {
-      console.log("Lista alumnos " + alumnoList.alumnos )
+    alumnoList.alumnos.forEach(alumno => {
+      alumno.visita = moment(alumno.visita).format('D MMM h:mm a')
+    })
+      
     this.dataSource = new MatTableDataSource(alumnoList.alumnos);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;

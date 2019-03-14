@@ -3,5 +3,5 @@ export interface AlumnoResponse {
  nombre:String,
  telefono: String,
  empresa:String
- visita:String
+ visita:string
 }

@@ -44,6 +44,7 @@ export const update = ({ bodymen: { body }, params }, res, next) =>
 export const destroy = async ({ params }, res, next) =>{
   var tutorVar
   var alumnoVar
+  var alumnoResVar
 
   await Tutor.findById(params.id)
     .then(notFound(res))
@@ -62,11 +63,25 @@ export const destroy = async ({ params }, res, next) =>{
 
   await AlumnoRes.findOne({'alumnoid' : alumnoVar.id})
   .then(alumnoRes =>{
-
+    alumnoResVar = alumnoRes
     return alumnoRes ? alumnoRes.remove() : null
   }
   ).then(success(res, 204))
   .catch(next)
+
+  await User.findOne({'alumnos': alumnoResVar.id})
+  .then(user => {
+
+      for (let index = 0; index < user.alumnos.length; index++) {
+        const element = user.alumnos[index];
+        if (element == alumnoResVar.id) {
+          user.alumnos.splice(index, 1);
+        }
+    }
+    return user.save()
+      })
+    .then(success(res, 204))
+    .catch(next)
 }
 
 export const tutoresDisp = async ( req, res, next) =>{

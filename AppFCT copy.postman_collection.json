@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "b69a1157-2ede-4962-9671-dd74c5d36901",
+		"_postman_id": "3477cde3-db58-4fe4-b9db-34989b43bdf2",
 		"name": "AppFCT copy",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -73,7 +73,7 @@
 					"urlencoded": [
 						{
 							"key": "nombre",
-							"value": "LIBREEE",
+							"value": "no Libre",
 							"type": "text"
 						},
 						{
@@ -134,7 +134,7 @@
 						},
 						{
 							"key": "empresa",
-							"value": "5c88e2d9086f4630c44db783",
+							"value": "5c89544a7eabb91d7c7053a4",
 							"type": "text"
 						}
 					]
@@ -276,14 +276,21 @@
 					]
 				},
 				"url": {
-					"raw": "http://localhost:9000/users",
+					"raw": "http://localhost:9000/users/:id",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "9000",
 					"path": [
-						"users"
+						"users",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "5c8a4d280bcfa03a65858dc8"
+						}
 					]
 				}
 			},
@@ -352,14 +359,29 @@
 		{
 			"name": "Delete Empresa",
 			"request": {
-				"method": "GET",
+				"method": "DELETE",
 				"header": [],
 				"body": {
 					"mode": "raw",
 					"raw": ""
 				},
 				"url": {
-					"raw": ""
+					"raw": "http://localhost:9000/empresas/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"empresas",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "5c8a4d510bcfa03a65858dc9"
+						}
+					]
 				}
 			},
 			"response": []
@@ -441,7 +463,7 @@
 			"response": []
 		},
 		{
-			"name": "Delete alumno",
+			"name": "Tutores disp",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -450,7 +472,39 @@
 					"raw": ""
 				},
 				"url": {
+					"raw": "http://localhost:9000/tutors/disp",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"tutors",
+						"disp"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Visitas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
 					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:9000/visitas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"visitas"
+					]
 				}
 			},
 			"response": []

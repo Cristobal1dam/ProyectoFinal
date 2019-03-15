@@ -4,6 +4,7 @@ import { AlumnoRes } from '../alumnoRes'
 import { Empresa} from '../empresa'
 import { Tutor} from '../tutor'
 import { User } from '../user'
+import { Visita } from '../visita'
 import { userInfo } from 'os';
 
 export const create = ({ bodymen: { body } }, res, next) =>
@@ -35,14 +36,39 @@ export const show = ({ params }, res, next) =>
     .then(success(res))
     .catch(next)
 
-export const update = ({ bodymen: { body }, params }, res, next) =>
-  Alumno.findById(params.id)
+export const update = async ({ bodymen: { body }, params }, res, next) =>{
+  var tutorVar
+  var empresaVar
+  await Alumno.findById(params.id)
     .then(notFound(res))
-    .then((alumno) => alumno ? Object.assign(alumno, body).save() : null)
-    .then((alumno) => alumno ? alumno.view(true) : null)
-    .then(success(res))
+    .then((alumno) => {
+      alumno.nombre = body.nombre
+      alumno.email = body.email
+      alumno.telefono = body.telefono
+      alumno.tutor = body.tutor
+      alumno.save()
+    })
     .catch(next)
 
+  await Tutor.findById(body.tutor)
+    .then(tutor => tutorVar = tutor)
+    .catch(next)
+
+  await Empresa.findById(tutorVar.empresa)
+    .then(empresa => empresaVar = empresa)
+    .catch(next)
+
+  await AlumnoRes.findOne({'alumnoid': params.id})
+    .then(alumnoRes =>{
+      alumnoRes.nombre = body.nombre
+      alumnoRes.telefono = body.telefono
+      alumnoRes.empresa = empresaVar.nombre
+
+      res.send(alumnoRes.save())
+    })
+    .catch(next)
+
+  }
 export const destroy = async ({ params }, res, next) =>{
   var alumnoVar
   var alumnoResVar
@@ -74,7 +100,22 @@ export const destroy = async ({ params }, res, next) =>{
         }
     }
     return user.save()
-      })
+    }).catch(next)
+
+    await Visita.find()
+    .then(visitas =>{
+      for (let index = 0; index < visitas.length; index++) {
+        const element = visitas[index];
+          for (let index2 = 0; index2 < alumnoVar.visitas.length; index++) {
+            const element2 = alumnoVar.visitas[index2];
+            if (element.id == element2.id) {
+              Visita.findById(element.id)
+              .then(visita => visita.remove())
+              .catch(next) 
+        }
+      }
+    }
+    })
     .then(success(res, 204))
     .catch(next)
     }

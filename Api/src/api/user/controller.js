@@ -1,7 +1,7 @@
 import { success, notFound } from '../../services/response/'
 import { User } from '.'
 import { Alumno } from '../alumno'
-import {alumnoRes} from '../alumnoRes'
+import {AlumnoRes} from '../alumnoRes'
 
 export const index = ({ querymen: { query, select, cursor } }, res, next) =>
   User.count(query)
@@ -89,9 +89,26 @@ export const updatePassword = ({ bodymen: { body }, params, user }, res, next) =
     .then(success(res))
     .catch(next)
 
-export const destroy = ({ params }, res, next) =>
-  User.findById(params.id)
+export const destroy = async ({ params }, res, next) =>{
+var alumnoResVar
+  await User.findById(params.id)
     .then(notFound(res))
-    .then((user) => user ? user.remove() : null)
+    .then((user) => {
+
+      for (let index = 0; index < user.alumnos.length; index++) {
+        const element = user.alumnos[index];
+
+       AlumnoRes.findById(element)
+        .then(alumnoRes => {
+          alumnoResVar = alumnoRes
+        })
+        .catch(next)
+
+        Alumno.destroy(alumnoResVar)
+           
+      }
+      user.remove()
+    })
     .then(success(res, 204))
     .catch(next)
+  }

@@ -4,4 +4,5 @@ export interface AlumnoResponse {
  telefono: String,
  empresa:String
  visita:string
+ alumnoid:string
 }

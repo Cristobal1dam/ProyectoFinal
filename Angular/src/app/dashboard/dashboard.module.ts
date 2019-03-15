@@ -17,6 +17,8 @@ import { ListUsusariosComponent } from './list-ususarios/list-ususarios.componen
 import { AddUserDialogComponent } from './add-user-dialog/add-user-dialog.component';
 import { DeleteUserDialogComponent } from './delete-user-dialog/delete-user-dialog.component';
 import { ListAlumnosComponent } from './list-alumnos/list-alumnos.component';
+import { AddAlumnoDialogComponent } from './add-alumno-dialog/add-alumno-dialog.component';
+import { DeleteAlumnoDialogComponent } from './delete-alumno-dialog/delete-alumno-dialog.component';
 
 @NgModule({
   imports: [
@@ -45,7 +47,9 @@ import { ListAlumnosComponent } from './list-alumnos/list-alumnos.component';
     AddTutorDialogComponent,
     DeleteTutorDialogComponent,
     AddUserDialogComponent,
-    DeleteUserDialogComponent
+    DeleteUserDialogComponent,
+    AddAlumnoDialogComponent,
+    DeleteAlumnoDialogComponent
    
   ],
  
@@ -59,7 +63,9 @@ import { ListAlumnosComponent } from './list-alumnos/list-alumnos.component';
                   ListUsusariosComponent,
                   AddUserDialogComponent,
                   DeleteUserDialogComponent,
-                  ListAlumnosComponent ]
+                  ListAlumnosComponent,
+                  AddAlumnoDialogComponent,
+                  DeleteAlumnoDialogComponent ]
 })
 
 export class DashboardModule {}

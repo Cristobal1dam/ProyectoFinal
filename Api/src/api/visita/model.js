@@ -29,7 +29,7 @@ visitaSchema.methods = {
       // simple view
       id: this.id,
       titulo: this.titulo,
-      fecha:  this.moment(this.fecha).format('D MMM h:mm a'),
+      fecha:  moment(this.fecha).format('D MMM h:mm a'),
       realizada: this.realizada,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt

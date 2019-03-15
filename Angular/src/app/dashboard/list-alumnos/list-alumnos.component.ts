@@ -5,6 +5,8 @@ import { UsuariosService } from '../services/usuarios.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AlumnoListResponse } from 'src/app/interfaces/AlumnoListResponse.interface';
 import * as moment from 'moment';
+import { AddAlumnoDialogComponent } from '../add-alumno-dialog/add-alumno-dialog.component';
+import { DeleteAlumnoDialogComponent } from '../delete-alumno-dialog/delete-alumno-dialog.component';
 
 @Component({
   selector: 'app-list-alumnos',
@@ -38,8 +40,15 @@ export class ListAlumnosComponent implements OnInit {
   });
 
     this.usuarioService.getAlumnoList(this.idUsuario).subscribe(alumnoList => {
+      
     alumnoList.alumnos.forEach(alumno => {
-      alumno.visita = moment(alumno.visita).format('D MMM h:mm a')
+      
+      if (alumno.visita == null){
+      alumno.visita = "No tiene visita"
+      
+      }else{
+      alumno.visita = moment(alumno.visita).format('D MMM h:mm a')}
+  
     })
       
     this.dataSource = new MatTableDataSource(alumnoList.alumnos);
@@ -58,5 +67,26 @@ export class ListAlumnosComponent implements OnInit {
         this.dataSource.paginator.firstPage();
       }
     }
+
+    openDialogNuevoAlumno() {
+      const dialogAddAlumno = this.dialog.open(AddAlumnoDialogComponent, {
+        data: { id: this.idUsuario}       
+      });
+      dialogAddAlumno.afterClosed().subscribe(result => {
+        this.getAlumnosList();
+      });
+    }
+
+    openDialogDeleteAlumno(alumno: AlumnoResponse) {
+      const dialogDeleteAlumno = this.dialog.open(DeleteAlumnoDialogComponent, {
+        data: { id: alumno.alumnoid,
+                nombre: alumno.nombre}       
+      });
+      dialogDeleteAlumno.afterClosed().subscribe(result => {
+        this.getAlumnosList();
+      });
+    }
+
+
 
 }

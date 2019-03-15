@@ -32,13 +32,35 @@ export const show = ({ params }, res, next) =>
     .then(success(res))
     .catch(next)
 
-export const update = ({ bodymen: { body }, params }, res, next) =>
-  Empresa.findById(params.id)
-    .then(notFound(res))
-    .then((empresa) => empresa ? Object.assign(empresa, body).save() : null)
-    .then((empresa) => empresa ? empresa.view(true) : null)
-    .then(success(res))
-    .catch(next)
+export const update = async ({ bodymen: { body }, params }, res, next) =>{
+  var tutorVar
+  var alumnoVar
+
+  await Empresa.findById(params.id)
+  .then(empresa =>{
+    empresa.nombre = body.nombre
+    empresa.direccion = body.direccion
+    empresa.loc = body.loc
+    empresa.save()
+  })
+  .catch(next)
+
+  await Tutor.findOne({ "empresa": params.id})
+  .then(tutor => tutorVar = tutor)
+  .catch(next)
+
+  await Alumno.findOne({'tutor': tutorVar.id})
+  .then(alumno => alumnoVar = alumno)
+  .catch(next)
+
+  await AlumnoRes.findOne({'alumnoid':alumnoVar.id})
+  .then(alumnoRes =>{
+    alumnoRes.empresa = body.nombre
+    res.send(alumnoRes.save())
+  })
+  .catch(next)
+
+}
 
 export const destroy = async ({ params }, res, next) =>{
 var empresaVar

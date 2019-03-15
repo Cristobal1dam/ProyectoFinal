@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AlumnoDto } from 'src/app/dto/AlumnoDto.dto';
+import { AlumnoResponse } from 'src/app/interfaces/AlumnoResponse.interface';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,9 +13,9 @@ export class AlumnoService {
   constructor(private http: HttpClient) { }
 
 
-/*
 
-  create(empresa : EmpresaDto): Observable<EmpresaResponse> {
+
+  create(id, alumno : AlumnoDto): Observable<AlumnoResponse> {
     const requestOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -19,7 +23,7 @@ export class AlumnoService {
       })
     };
   
-    return this.http.post<EmpresaResponse>(`${environment.ApiUrl}empresas`,empresa, requestOptions);
+    return this.http.post<AlumnoResponse>(`${environment.ApiUrl}alumnos/${id}`,alumno, requestOptions);
   }
 
   delete(id): Observable<any> {
@@ -29,6 +33,6 @@ export class AlumnoService {
         'Access-Control-Allow-Origin': '*'
       })
     };
-    return this.http.delete(`${environment.ApiUrl}empresas/${id}`, requestOptions);
-  }*/
+    return this.http.delete(`${environment.ApiUrl}alumnos/${id}`, requestOptions);
+  }
 }

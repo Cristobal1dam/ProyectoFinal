@@ -35,13 +35,27 @@ export const update = ({ bodymen: { body }, params }, res, next) =>
     .then(success(res))
     .catch(next)
 
-export const destroy = ({ params }, res, next) =>
-  Visita.findById(params.id)
+export const destroy = async ({ params }, res, next) =>{
+  var visitaVar
+  await Visita.findById(params.id)
     .then(notFound(res))
-    .then((visita) => visita ? visita.remove() : null)
+    .then((visita) => {
+      visitaVar = visita
+      visita.remove()})
+      .catch(next)
+
+  await Alumno.find({'visitas.fecha': visitaVar.fecha})
+  .then(alumno =>{
+    for (let index = 0; index < alumno.visitas.length; index++) {
+      const element = alumno.visitas[index];
+        if(element == visitaVar.fecha)
+          alumno.visitas.splice(index, 1);
+    }
+    return alumno.save()
+  })
     .then(success(res, 204))
     .catch(next)
-
+  }
 export const createVisita = async ({ bodymen: { body }, params }, res, next) =>{
 
       var varVisita;

@@ -1,0 +1,44 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" fxLayoutGap="225px">
+  <h3>Crear alumno</h3>
+  <mat-dialog-content fxLayout="column" fxLayoutAlign="space-around">
+    <div class="pb-1">
+      <mat-form-field style="width: 100%">
+        <input matInput placeholder="Nombre" [formControl]="form.controls['nombre']">
+      </mat-form-field>
+      <small *ngIf="form.controls['nombre'].hasError('required') && form.controls['nombre'].touched" class="mat-text-warn">Nombre
+        requerido.</small>
+    </div>
+    <div class="pb-1">
+        <mat-form-field style="width: 100%">
+        <input matInput placeholder="Email" [formControl]="form.controls['email']">
+      </mat-form-field>
+      <small *ngIf="form.controls['email'].hasError('required') && form.controls['email'].touched" class="mat-text-warn">Email
+        requerido.</small>
+    </div>
+    <div class="pb-1">
+        <mat-form-field style="width: 100%">
+        <input matInput placeholder="Telefono" [formControl]="form.controls['telefono']">
+      </mat-form-field>
+      <small *ngIf="form.controls['telefono'].hasError('required') && form.controls['telefono'].touched" class="mat-text-warn">Teléfono
+        requerido.</small>
+    </div>
+
+    <div class="pb-1">
+        <mat-form-field style="width: 50%">
+          <mat-select placeholder="Tutores" [formControl]="form.controls['tutor']">
+            <mat-option *ngFor="let tutor of tutores" [value]="tutor.id">{{tutor.nombre}}
+    
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <small *ngIf="form.controls['tutor'].hasError('required') && form.controls['tutor'].touched"
+          class="mat-text-warn">Tutor requerido</small>
+      </div>
+
+    <mat-dialog-actions fxLayout="row" fxLayoutAlign="space-around">
+      <button mat-raised-button (click)="closeDialog()">Cancelar</button>
+
+      <button mat-raised-button type="submit" [disabled]="!form.valid">Crear</button>
+    </mat-dialog-actions>
+  </mat-dialog-content>
+</form>

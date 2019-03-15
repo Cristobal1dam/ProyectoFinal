@@ -91,7 +91,6 @@ export const tutoresDisp = async ( req, res, next) =>{
   
   await Tutor.find()
   .then(tutores =>{
-console.log(tutores)
     listaTutores = tutores
   })
   .catch(next)

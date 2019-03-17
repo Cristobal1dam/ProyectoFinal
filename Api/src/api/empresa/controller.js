@@ -47,11 +47,15 @@ export const update = async ({ bodymen: { body }, params }, res, next) =>{
 
   await Tutor.findOne({ "empresa": params.id})
   .then(tutor => tutorVar = tutor)
+  .then(notFound(res))
   .catch(next)
+
 
   await Alumno.findOne({'tutor': tutorVar.id})
   .then(alumno => alumnoVar = alumno)
+  .then(notFound(res))
   .catch(next)
+  
 
   await AlumnoRes.findOne({'alumnoid':alumnoVar.id})
   .then(alumnoRes =>{
@@ -59,6 +63,9 @@ export const update = async ({ bodymen: { body }, params }, res, next) =>{
     res.send(alumnoRes.save())
   })
   .catch(next)
+
+  res.status(200).send();
+
 
 }
 
@@ -153,8 +160,8 @@ export const empresasDisp = async ( req, res, next) =>{
         for (let index = 0; index < empresasNoDisp.length; index++) {
           const empresaNoDisp = empresasNoDisp[index];
   
-          for (let index = 0; index < listaEmpresas.length; index++) {
-            const empresa2 = listaEmpresas[index];
+          for (let i = 0; i < listaEmpresas.length; i++) {
+            const empresa2 = listaEmpresas[i];
   
             if(empresaNoDisp.id != empresa2.id)
               empresasDisp.push(empresa2)

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { UserDto } from 'src/app/dto/UserDto.dto';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { CustomValidators } from 'ng2-validation';
 import { UsuariosService } from '../services/usuarios.service';
 
@@ -23,14 +23,16 @@ export class AddUserDialogComponent implements OnInit {
               private usuarioService: UsuariosService) { }
 
   ngOnInit() {
-
+  
     this.form = this.fb.group ( {
       name: ['' , Validators.compose ( [ Validators.required ] )],
       email: ['' , Validators.compose ( [ Validators.required ] )],
       password: password,
       confirmPassword : confirmPassword
     } );
+  
   }
+  
 
   closeDialog(){
     this.dialogRef.close();
@@ -40,9 +42,12 @@ export class AddUserDialogComponent implements OnInit {
     this.usuario = new UserDto(this.form.controls['name'].value,
                                   this.form.controls['email'].value,
                                   this.form.controls['password'].value)
+
+                           
     this.usuarioService.create(this.usuario).subscribe(usuarioResp => {
         this.dialogRef.close();
       });
+   
   }
 
 }

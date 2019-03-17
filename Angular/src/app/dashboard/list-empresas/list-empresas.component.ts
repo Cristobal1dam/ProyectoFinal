@@ -36,12 +36,30 @@ export class ListEmpresasComponent implements OnInit {
         }
       );
     }
-  openDialogNuevaEmpresa() {
-      const dialogoNuevaEmpresa = this.dialog.open(AddEmpresaDialogComponent);
   
+  openDialogNuevaEmpresa() {
+      const dialogoNuevaEmpresa = this.dialog.open(AddEmpresaDialogComponent, {
+        data: { add: true }
+      });
       dialogoNuevaEmpresa.afterClosed().subscribe(result => {
         this.getEmpresasList();
       });
+  }
+
+  openDialogEditEmpresa(empresa:EmpresaResponse){
+    const dialogEditEmpresa = this.dialog.open(AddEmpresaDialogComponent, {
+      data: { add: false,
+              id: empresa.id,
+              nombre: empresa.nombre,
+              direccion: empresa.direccion,
+              loc: empresa.loc
+            }
+
+    });
+    dialogEditEmpresa.afterClosed().subscribe(result => {
+      this.getEmpresasList();
+    });
+
   }
   openDialogDeleteEmpresa(empresa: EmpresaResponse) {
     const dialogDeleteEmpresa = this.dialog.open(DeleteEmpresaDialogComponent, {

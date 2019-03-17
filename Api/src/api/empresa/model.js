@@ -2,13 +2,16 @@ import mongoose, { Schema } from 'mongoose'
 
 const empresaSchema = new Schema({
   nombre: {
-    type: String
+    type: String,
+    required: true
   },
   direccion: {
-    type: String
+    type: String,
+    required: true
   },
   loc: {
-    type: String
+    type: String,
+    required: true
   }
 }, {
   timestamps: true,

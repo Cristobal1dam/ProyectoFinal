@@ -41,11 +41,24 @@ export class ListUsusariosComponent implements OnInit {
 
   openDialogNuevoUsuario() {
       const dialogoNuevoUsuario = this.dialog.open(AddUserDialogComponent);
-  
       dialogoNuevoUsuario.afterClosed().subscribe(result => {
         this.getUsuariosList();
       });
   }
+
+  /*openDialogEditUsuario(usuario: UsuarioResponse) {
+    const dialogoEditUsuario = this.dialog.open(AddUserDialogComponent, {
+      data: { id: usuario.id,
+              nombre: usuario.name,
+              email: usuario.email
+            }
+    });
+
+    dialogoEditUsuario.afterClosed().subscribe(result => {
+      this.getUsuariosList();
+    });
+}*/
+
 
   openDialogDeleteUsuario(usuario: UsuarioResponse) {
     const dialogoDelteUsuario = this.dialog.open(DeleteUserDialogComponent, {

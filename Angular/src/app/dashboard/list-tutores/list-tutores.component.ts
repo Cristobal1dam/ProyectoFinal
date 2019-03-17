@@ -4,6 +4,7 @@ import { MatTableDataSource, MatPaginator, MatSort, MatDialog } from '@angular/m
 import { TutorService } from '../services/tutor.service';
 import { AddTutorDialogComponent } from '../add-tutor-dialog/add-tutor-dialog.component';
 import { DeleteTutorDialogComponent } from '../delete-tutor-dialog/delete-tutor-dialog.component';
+import { EmpresaDto } from 'src/app/dto/EmpresaDto.dto';
 
 @Component({
   selector: 'app-list-tutores',
@@ -36,11 +37,29 @@ export class ListTutoresComponent implements OnInit {
       );
     }
   openDialogNuevoTutor() {
-      const dialogoNuevoTutor = this.dialog.open(AddTutorDialogComponent);
+      const dialogoNuevoTutor = this.dialog.open(AddTutorDialogComponent, {
+        data: { add: true }
+      });
   
       dialogoNuevoTutor.afterClosed().subscribe(result => {
         this.getTutorList();
       });
+  }
+  openDialogEditTutor(tutor:TutorResponse){
+    const dialogEditEmpresa = this.dialog.open(AddTutorDialogComponent, {
+      data: { add: false,
+              id: tutor.id,
+              nombre: tutor.nombre,
+              email: tutor.email,
+              telefono: tutor.telefono,
+              empresa: tutor.empresa
+            }
+
+    });
+    dialogEditEmpresa.afterClosed().subscribe(result => {
+      this.getTutorList();
+    });
+
   }
   openDialogDeleteTutor(tutor: TutorResponse) {
     const dialogDeleteTutor = this.dialog.open(DeleteTutorDialogComponent, {

@@ -4,13 +4,15 @@ import { LoginResponse } from 'src/app/interfaces/Login-response.interface';
 import { Observable } from 'rxjs';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private http: HttpClient
+  constructor(private http: HttpClient,
+              private jwtHelper: JwtHelperService
     ) { }
 
   login(loginDto: LoginDto): Observable<LoginResponse> {
@@ -33,16 +35,18 @@ export class AuthService {
   }
 
   setLoginData(loginResponse: LoginResponse) {
-
     localStorage.setItem('token', loginResponse.token);
     localStorage.setItem('id', loginResponse.user.id);
     localStorage.setItem('name', loginResponse.user.name);
     localStorage.setItem('email', loginResponse.user.email);
     localStorage.setItem('role', loginResponse.user.role);
-   
- 
-
   }
+
+  public isAuthenticated(): boolean {
+    const token = localStorage.getItem('token');
+    return !this.jwtHelper.isTokenExpired(token);
+  }
+
 }
 
 

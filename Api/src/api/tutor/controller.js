@@ -113,13 +113,11 @@ export const tutoresDisp = async ( req, res, next) =>{
       
     }
 
-    console.log(tutoresNoDisp)
-
     for (let index = 0; index < tutoresNoDisp.length; index++) {
       const tutorNoDisp = tutoresNoDisp[index];
 
-      for (let index = 0; index < listaTutores.length; index++) {
-        const tutor2 = listaTutores[index];
+      for (let i = 0; i < listaTutores.length; i++) {
+        const tutor2 = listaTutores[i];
    
         if(tutorNoDisp.id != tutor2.id)
         tutoresDisp.push(tutor2)

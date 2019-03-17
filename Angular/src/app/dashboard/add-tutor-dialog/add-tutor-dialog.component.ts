@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { TutorDto } from 'src/app/dto/TutorDto.dto';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { EmpresaService } from '../services/empresa.service';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { TutorService } from '../services/tutor.service';
 import { EmpresaResponse } from 'src/app/interfaces/EmpresaResponse.interface';
 
@@ -16,13 +16,14 @@ export class AddTutorDialogComponent implements OnInit {
   empresas: EmpresaResponse[];
   public form: FormGroup;
 
-  constructor(public dialogRef: MatDialogRef<AddTutorDialogComponent>,
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
+              public dialogRef: MatDialogRef<AddTutorDialogComponent>,
               private fb: FormBuilder,
               private empresaService: EmpresaService,
               private tutorService: TutorService) { }
 
   ngOnInit() {
-
+    if(this.data.add){
     this.form = this.fb.group ( {
       nombre: ['' , Validators.compose ( [ Validators.required ] )],
       email: ['' , Validators.compose ( [ Validators.required ] )],
@@ -30,6 +31,15 @@ export class AddTutorDialogComponent implements OnInit {
       empresa: ['' , Validators.compose ( [ Validators.required ] )]
 
     } );
+  }else{
+    this.form = this.fb.group ( {
+      nombre: [this.data.nombre , Validators.compose ( [ Validators.required ] )],
+      email: [this.data.email , Validators.compose ( [ Validators.required ] )],
+      telefono: [this.data.telefono , Validators.compose ( [ Validators.required ] )],
+      empresa: ['' , Validators.compose ( [ Validators.required ] )]
+    } );
+
+  }
     this.getAllEmpresasDisp();
 
   }
@@ -44,14 +54,24 @@ export class AddTutorDialogComponent implements OnInit {
                                   this.form.controls['telefono'].value,
                                   this.form.controls['empresa'].value)
 
+    if(this.data.add){
     this.tutorService.create(this.tutor).subscribe(tutorResp => {
         this.dialogRef.close();
       });
+    }else{
+    this.tutorService.edit(this.data.id, this.tutor).subscribe(tutorResp => {
+      this.dialogRef.close();
+    });
+    }
   }
 
   getAllEmpresasDisp(){
+    this.empresas = []
+    if(!this.data.add)
+      this.empresas.push(this.data.empresa)
+
     this.empresaService.getAllDisp().subscribe(empresaList => {
-       this.empresas = empresaList;
+       this.empresas.push.apply(this.empresas, empresaList);
     
       }, error =>{
         console.log(error);

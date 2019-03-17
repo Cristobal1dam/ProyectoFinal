@@ -56,4 +56,15 @@ export class TutorService {
   
     return this.http.get<TutorDispResponse[]>(`${environment.ApiUrl}tutors/disp`, requestOptions);
   }
+
+  edit(id, tutor : TutorDto): Observable<any> {
+    const requestOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      })
+    };
+  
+    return this.http.put<any>(`${environment.ApiUrl}tutors/${id}`,tutor, requestOptions);
+  }
 }

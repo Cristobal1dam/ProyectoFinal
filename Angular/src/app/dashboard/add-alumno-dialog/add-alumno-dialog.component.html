@@ -36,7 +36,7 @@
       </div>
 
     <mat-dialog-actions fxLayout="row" fxLayoutAlign="space-around">
-      <button mat-raised-button (click)="closeDialog()">Cancelar</button>
+      <button mat-raised-button type="button" (click)="closeDialog()">Cancelar</button>
 
       <button mat-raised-button type="submit" [disabled]="!form.valid">Crear</button>
     </mat-dialog-actions>

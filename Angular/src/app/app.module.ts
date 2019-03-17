@@ -47,6 +47,7 @@ import {
 
 import { AppRoutes } from './app.routing';
 import { AppComponent } from './app.component';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -72,6 +73,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AccordionAnchorDirective,
     AccordionLinkDirective,
     AccordionDirective,
+    
   ],
   imports: [
     BrowserModule,

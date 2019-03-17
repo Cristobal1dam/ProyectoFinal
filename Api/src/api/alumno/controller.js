@@ -106,7 +106,7 @@ export const destroy = async ({ params }, res, next) =>{
     .then(visitas =>{
       for (let index = 0; index < visitas.length; index++) {
         const element = visitas[index];
-          for (let index2 = 0; index2 < alumnoVar.visitas.length; index++) {
+          for (let index2 = 0; index2 < alumnoVar.visitas.length; index2++) {
             const element2 = alumnoVar.visitas[index2];
             if (element.id == element2.id) {
               Visita.findById(element.id)
@@ -115,6 +115,7 @@ export const destroy = async ({ params }, res, next) =>{
         }
       }
     }
+    res.send(visitas)
     })
     .then(success(res, 204))
     .catch(next)

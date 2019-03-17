@@ -56,4 +56,15 @@ export class EmpresaService {
     };
     return this.http.delete(`${environment.ApiUrl}empresas/${id}`, requestOptions);
   }
+
+  edit(id, empresa : EmpresaDto): Observable<any> {
+    const requestOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      })
+    };
+  
+    return this.http.put<any>(`${environment.ApiUrl}empresas/${id}`,empresa, requestOptions);
+  }
 }

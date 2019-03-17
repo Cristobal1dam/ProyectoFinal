@@ -59,5 +59,18 @@ export class UsuariosService {
     return this.http.get<AlumnoListResponse>(`${environment.ApiUrl}users/${id}`, requestOptions);
   }
 
+  edit(id, user : UserDto): Observable<any> {
+    const requestOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      })
+    };
+
+    user.access_token = 'q1VWdW06rgwqIicOKnebJeAjRZX3nEll'
+  
+    return this.http.put<any>(`${environment.ApiUrl}users/${id}`,user, requestOptions);
+  }
+
 
 }

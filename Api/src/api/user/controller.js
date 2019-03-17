@@ -2,6 +2,7 @@ import { success, notFound } from '../../services/response/'
 import { User } from '.'
 import { Alumno } from '../alumno'
 import {AlumnoRes} from '../alumnoRes'
+import {Visita} from '../visita'
 
 export const index = ({ querymen: { query, select, cursor } }, res, next) =>
   User.count(query)
@@ -91,24 +92,48 @@ export const updatePassword = ({ bodymen: { body }, params, user }, res, next) =
 
 export const destroy = async ({ params }, res, next) =>{
 var alumnoResVar
+var alumnoVar
+var userVar
   await User.findById(params.id)
     .then(notFound(res))
     .then((user) => {
+      userVar = user
+      user.remove()
 
-      for (let index = 0; index < user.alumnos.length; index++) {
+      for (let index = 0; index < userVar.alumnos.length; index++) {
         const element = user.alumnos[index];
 
        AlumnoRes.findById(element)
         .then(alumnoRes => {
           alumnoResVar = alumnoRes
-        })
-        .catch(next)
+          alumnoRes.remove()
+        
+          Alumno.findById(alumnoResVar.alumnoid)
+        .then(alumno => {
+          alumnoVar = alumno
+          alumno.remove()
 
-        Alumno.destroy(alumnoResVar)
-           
+          Visita.find()
+          .then(visitas =>{
+            for (let index = 0; index < visitas.length; index++) {
+              const element = visitas[index];
+                for (let index2 = 0; index2 < alumnoVar.visitas.length; index2++) {
+                  const element2 = alumnoVar.visitas[index2];
+                  if (element.id == element2.id) {
+                    Visita.findById(element.id)
+                    .then(visita => visita.remove())
+                    .catch(next) 
+              }
+            }
+          }
+        }).catch(next) 
+        }).catch(next)            
+        }).catch(next)       
       }
-      user.remove()
+      res.send(user)
     })
     .then(success(res, 204))
     .catch(next)
   }
+
+ 

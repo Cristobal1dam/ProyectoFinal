@@ -6,6 +6,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AlumnoDto } from 'src/app/dto/AlumnoDto.dto';
 import { TutorResponse } from 'src/app/interfaces/TutorResponse.interface';
 import { TutorDispResponse } from 'src/app/interfaces/TutorDispResponse.interface';
+import { OneAlumnoResponse } from 'src/app/interfaces/OneAlumnoResponse.interface';
+import { TutorDtoDisp } from 'src/app/dto/TutorDtoDisp.dto';
 
 @Component({
   selector: 'app-add-alumno-dialog',
@@ -14,7 +16,9 @@ import { TutorDispResponse } from 'src/app/interfaces/TutorDispResponse.interfac
 })
 export class AddAlumnoDialogComponent implements OnInit {
   alumno: AlumnoDto;
+  alumnoEdit: OneAlumnoResponse;
   tutores: TutorDispResponse[];
+  tutorAlumnoEdit:TutorDtoDisp
   public form: FormGroup;
 
   constructor(public dialogRef: MatDialogRef<AddAlumnoDialogComponent>,
@@ -25,14 +29,26 @@ export class AddAlumnoDialogComponent implements OnInit {
 
   ngOnInit() {
 
+
+    if(this.data.add){
+    this.getAllTutoresDisp(this.alumnoEdit)
+  }else{
+    this.getAlumnoEdit()
+  }
+    
     this.form = this.fb.group ( {
       nombre: ['' , Validators.compose ( [ Validators.required ] )],
       email: ['' , Validators.compose ( [ Validators.required ] )],
       telefono: ['' , Validators.compose ( [ Validators.required ] )],
       tutor: ['' , Validators.compose ( [ Validators.required ] )]
     } );
+ 
+    
+    
 
-    this.getAllTutoresDisp()
+  
+
+   
   }
 
   closeDialog(){
@@ -40,20 +56,42 @@ export class AddAlumnoDialogComponent implements OnInit {
   }
 
   onSubmit(){
-    
     this.alumno = new AlumnoDto(this.form.controls['nombre'].value,
                                   this.form.controls['email'].value,
                                   this.form.controls['telefono'].value,
                                   this.form.controls['tutor'].value)
 
-    this.alumnoService.create(this.data.id,this.alumno).subscribe(tutorResp => {
+    this.alumnoService.create(this.data.id,this.alumno).subscribe(alumnoResp => {
         this.dialogRef.close();
       });
   }
 
-  getAllTutoresDisp(){
+  getAlumnoEdit(){
+    this.alumnoService.getOne(this.data.idAlumno).subscribe(alumno => {
+      console.log("Nombre alumno => " + alumno.nombre)
+      this.form = this.fb.group ( {
+        nombre: [alumno.nombre , Validators.compose ( [ Validators.required ] )],
+        email: [alumno.email , Validators.compose ( [ Validators.required ] )],
+        telefono: [alumno.telefono , Validators.compose ( [ Validators.required ] )],
+        tutor: ['' , Validators.compose ( [ Validators.required ] )]
+      } );
+      this.getAllTutoresDisp(alumno)
+     // this.dialogRef.close();
+    });
+
+
+  }
+
+  getAllTutoresDisp(alumno:OneAlumnoResponse){
+    this.tutores = []
+    console.log("Nombre tutor =>" + alumno.tutor.nombre)
+    if(!this.data.add){
+      this.tutorAlumnoEdit = new TutorDtoDisp (alumno.tutor.id,alumno.tutor.nombre)
+      this.tutores.push(<TutorDispResponse>this.tutorAlumnoEdit)
+    }
+
     this.tutorService.getAllDisp().subscribe(tutorList => {
-       this.tutores = tutorList;
+      this.tutores.push.apply(this.tutores, tutorList);
       console.log(this.tutores)
       }, error =>{
         console.log(error);

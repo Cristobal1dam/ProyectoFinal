@@ -68,9 +68,23 @@ export class ListAlumnosComponent implements OnInit {
       }
     }
 
+    
+  openDialogEditAlumno(alumno: AlumnoResponse) {
+    const dialogoEditAlumno = this.dialog.open(AddAlumnoDialogComponent, {
+      data: { id: this.idUsuario,
+              idAlumno: alumno.alumnoid,
+              add: false   }
+    });
+
+    dialogoEditAlumno.afterClosed().subscribe(result => {
+      this.getAlumnosList();
+    });
+}
+
     openDialogNuevoAlumno() {
       const dialogAddAlumno = this.dialog.open(AddAlumnoDialogComponent, {
-        data: { id: this.idUsuario}       
+        data: { id: this.idUsuario,
+                add: true}       
       });
       dialogAddAlumno.afterClosed().subscribe(result => {
         this.getAlumnosList();

@@ -1,15 +1,15 @@
 {
 	"info": {
-		"_postman_id": "04e84d4a-745b-4a75-a5c1-55124c2bd773",
+		"_postman_id": "6145c3d2-b264-48af-b6d3-16235fe31c95",
 		"name": "AppFCT copy",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Visitas",
+			"name": "Empresa",
 			"item": [
 				{
-					"name": "Add visita",
+					"name": "Add empresa",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -24,32 +24,60 @@
 							"mode": "urlencoded",
 							"urlencoded": [
 								{
-									"key": "titulo",
-									"value": "visitita",
+									"key": "nombre",
+									"value": "no Libre",
 									"type": "text"
 								},
 								{
-									"key": "fecha",
-									"value": "1-1-2020",
+									"key": "direccion",
+									"value": "direccionPrueba",
+									"type": "text"
+								},
+								{
+									"key": "loc",
+									"value": "locPrueba",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "http://localhost:9000/visitas/:id",
+							"raw": "http://localhost:9000/empresas",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "9000",
 							"path": [
-								"visitas",
+								"empresas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Empresa",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:9000/empresas/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"empresas",
 								":id"
 							],
 							"variable": [
 								{
 									"key": "id",
-									"value": "5c8d00e20f898906545c2355"
+									"value": "5c8a4d510bcfa03a65858dc9"
 								}
 							]
 						}
@@ -57,7 +85,7 @@
 					"response": []
 				},
 				{
-					"name": "Get Visitas",
+					"name": "Get empresas",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -66,14 +94,90 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:9000/visitas",
+							"raw": "localhost:9000/empresas",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"empresas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Empresas disp",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:9000/empresas/disp",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "9000",
 							"path": [
-								"visitas"
+								"empresas",
+								"disp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update empresa",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "nombre",
+									"value": "EMPRESA ACTUALIZADA",
+									"type": "text"
+								},
+								{
+									"key": "direccion",
+									"value": "EMPRESA ACTUALIZADA",
+									"type": "text"
+								},
+								{
+									"key": "loc",
+									"value": "EMPRESA ACTUALIZADA",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:9000/empresas/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"empresas",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "5c8b594c815a611a127869a6"
+								}
 							]
 						}
 					},
@@ -82,7 +186,174 @@
 			]
 		},
 		{
-			"name": "Usuarios",
+			"name": "Alumno",
+			"item": [
+				{
+					"name": "add alumno",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "nombre",
+									"value": "alumnoDeleteTutor5",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "123123@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "telefono",
+									"value": "655485456",
+									"type": "text"
+								},
+								{
+									"key": "tutor",
+									"value": "5c88f2fc30283b3791ab8f25",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:9000/alumnos/5c858e70072a180017a8e66d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"alumnos",
+								"5c858e70072a180017a8e66d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Alumnos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:9000/alumnos",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"alumnos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Alumno",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:9000/alumnos/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"alumnos",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "5c8b6189299498220fd90000"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Alumno",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "nombre",
+									"value": "ACTUALIZADow",
+									"type": "text"
+								},
+								{
+									"key": "telefono",
+									"value": "6549871294",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "ACTUALIZAD9s@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "tutor",
+									"value": "5c8b6b713decb425e644b6c8",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:9000/alumnos/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"alumnos",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "5c8b6299dc522b22f2e8e236"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Usuario",
 			"item": [
 				{
 					"name": "Auth",
@@ -206,124 +477,7 @@
 			]
 		},
 		{
-			"name": "Alumnos",
-			"item": [
-				{
-					"name": "add alumno",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/x-www-form-urlencoded",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "nombre",
-									"value": "alumnoDeleteTutor5",
-									"type": "text"
-								},
-								{
-									"key": "email",
-									"value": "123123@gmail.com",
-									"type": "text"
-								},
-								{
-									"key": "telefono",
-									"value": "655485456",
-									"type": "text"
-								},
-								{
-									"key": "tutor",
-									"value": "5c88f2fc30283b3791ab8f25",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://localhost:9000/alumnos/5c858e70072a180017a8e66d",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9000",
-							"path": [
-								"alumnos",
-								"5c858e70072a180017a8e66d"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Alumnos",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "localhost:9000/alumnos",
-							"host": [
-								"localhost"
-							],
-							"port": "9000",
-							"path": [
-								"alumnos"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get AlumnoRes",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "http://localhost:9000/alumnores",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9000",
-							"path": [
-								"alumnores"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete alumno",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": ""
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Tutores",
+			"name": "Tutor",
 			"item": [
 				{
 					"name": "Add tutor",
@@ -456,10 +610,10 @@
 			]
 		},
 		{
-			"name": "Empresas",
+			"name": "Visita",
 			"item": [
 				{
-					"name": "Add empresa",
+					"name": "Add visita",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -474,60 +628,37 @@
 							"mode": "urlencoded",
 							"urlencoded": [
 								{
-									"key": "nombre",
-									"value": "no Libre",
+									"key": "titulo",
+									"value": "prueba visita",
 									"type": "text"
 								},
 								{
-									"key": "direccion",
-									"value": "direccionPrueba",
-									"type": "text"
-								},
-								{
-									"key": "loc",
-									"value": "locPrueba",
+									"key": "fecha",
+									"value": "2015-03-25",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "http://localhost:9000/empresas",
+							"raw": "http://localhost:9000/visitas",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "9000",
 							"path": [
-								"empresas"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete Empresa",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "http://localhost:9000/empresas/:id",
-							"protocol": "http",
-							"host": [
-								"localhost"
+								"visitas"
 							],
-							"port": "9000",
-							"path": [
-								"empresas",
-								":id"
-							],
-							"variable": [
+							"query": [
 								{
-									"key": "id",
-									"value": "5c8a4d510bcfa03a65858dc9"
+									"key": "titulo",
+									"value": "prueba visita",
+									"disabled": true
+								},
+								{
+									"key": "fecha",
+									"value": "10-10",
+									"disabled": true
 								}
 							]
 						}
@@ -535,7 +666,7 @@
 					"response": []
 				},
 				{
-					"name": "Get empresas",
+					"name": "Get Visitas",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -544,44 +675,21 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "localhost:9000/empresas",
-							"host": [
-								"localhost"
-							],
-							"port": "9000",
-							"path": [
-								"empresas"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Empresas disp",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "http://localhost:9000/empresas/disp",
+							"raw": "http://localhost:9000/visitas",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "9000",
 							"path": [
-								"empresas",
-								"disp"
+								"visitas"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Edit empresa",
+					"name": "Delete visita",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -591,6 +699,34 @@
 						},
 						"url": {
 							"raw": ""
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "AlumnoRes",
+			"item": [
+				{
+					"name": "Get AlumnoRes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:9000/alumnores",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"alumnores"
+							]
 						}
 					},
 					"response": []

@@ -1,8 +1,8 @@
 package com.example.jose.appfct;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -30,7 +30,7 @@ public class SessionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_session);
-
+        findViews();
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,11 +78,11 @@ public class SessionActivity extends AppCompatActivity {
 
     }
 
-    private void findViews(View view) {
+    private void findViews() {
 
-        btnLogin = view.findViewById(R.id.buttonLogin);
-        etEmail = view.findViewById(R.id.editTextEmail);
-        etPassowrd = view.findViewById(R.id.editTextPassword);
+        btnLogin = findViewById(R.id.buttonLogin);
+        etEmail = findViewById(R.id.editTextEmail);
+        etPassowrd = findViewById(R.id.editTextPassword);
 
     }
 

@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AlumnoDetalleActivity">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardViewDetalleTutor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewDetalleAlumno">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageViewDireccion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/imageViewEmpresa"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewEmpresa"
+                app:srcCompat="@drawable/ic_pin_drop_black_24dp" />
+
+            <ImageView
+                android:id="@+id/imageViewEmpresa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="@+id/imageViewEmailTutor"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewEmailTutor"
+                app:srcCompat="@drawable/ic_business_black_24dp" />
+
+            <ImageView
+                android:id="@+id/imageViewEmailTutor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="@+id/imageViewTelefonoTutor"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewTelefonoTutor"
+                app:srcCompat="@drawable/ic_email_black_24dp" />
+
+            <ImageView
+                android:id="@+id/imageViewTutor"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_school_black_24dp" />
+
+            <TextView
+                android:id="@+id/textViewStringTutor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/Tutor"
+                android:textColor="@android:color/background_dark"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/imageViewTutor"
+                app:layout_constraintStart_toEndOf="@+id/imageViewTutor"
+                app:layout_constraintTop_toTopOf="@+id/imageViewTutor" />
+
+            <TextView
+                android:id="@+id/textViewNombreTutor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:textColor="@android:color/background_dark"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewStringTutor" />
+
+            <ImageView
+                android:id="@+id/imageViewTelefonoTutor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="@+id/textViewNombreTutor"
+                app:layout_constraintTop_toBottomOf="@+id/textViewNombreTutor"
+                app:srcCompat="@drawable/ic_call_black_24dp" />
+
+            <TextView
+                android:id="@+id/textViewTelefonoTutor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageViewTelefonoTutor"
+                app:layout_constraintStart_toEndOf="@+id/imageViewTelefonoTutor"
+                app:layout_constraintTop_toTopOf="@+id/imageViewTelefonoTutor" />
+
+            <TextView
+                android:id="@+id/textViewEmailTutor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageViewEmailTutor"
+                app:layout_constraintStart_toEndOf="@+id/imageViewEmailTutor"
+                app:layout_constraintTop_toTopOf="@+id/imageViewEmailTutor" />
+
+            <TextView
+                android:id="@+id/textViewEmpresa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageViewEmpresa"
+                app:layout_constraintStart_toEndOf="@+id/imageViewEmpresa"
+                app:layout_constraintTop_toTopOf="@+id/imageViewEmpresa" />
+
+            <TextView
+                android:id="@+id/textViewDireccion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageViewDireccion"
+                app:layout_constraintStart_toEndOf="@+id/imageViewDireccion"
+                app:layout_constraintTop_toTopOf="@+id/imageViewDireccion" />
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardViewDetalleAlumno"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textViewTelefonoAlumno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageViewTelefonoAlumno"
+                app:layout_constraintStart_toEndOf="@+id/imageViewTelefonoAlumno"
+                app:layout_constraintTop_toTopOf="@+id/imageViewTelefonoAlumno" />
+
+            <ImageView
+                android:id="@+id/imageViewTelefonoAlumno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="@+id/textViewAlumnoNombre"
+                app:layout_constraintTop_toBottomOf="@+id/textViewAlumnoNombre"
+                app:srcCompat="@drawable/ic_call_black_24dp" />
+
+            <TextView
+                android:id="@+id/textViewAlumnoNombre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:textColor="@android:color/background_dark"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+            <TextView
+                android:id="@+id/textViewAlumnoString"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/Alumno"
+                android:textColor="@android:color/background_dark"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_person_black_24dp" />
+
+            <ImageView
+                android:id="@+id/imageViewEmailAlumno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/imageViewTelefonoAlumno"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewTelefonoAlumno"
+                app:srcCompat="@drawable/ic_email_black_24dp" />
+
+            <TextView
+                android:id="@+id/textViewEmailAlumno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageViewEmailAlumno"
+                app:layout_constraintStart_toEndOf="@+id/imageViewEmailAlumno"
+                app:layout_constraintTop_toTopOf="@+id/imageViewEmailAlumno" />
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.CardView>
+</android.support.constraint.ConstraintLayout>

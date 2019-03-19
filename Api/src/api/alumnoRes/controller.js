@@ -1,5 +1,7 @@
 import { success, notFound } from '../../services/response/'
 import { AlumnoRes } from '.'
+import { User } from '../user'
+import { userInfo } from 'os';
 
 export const create = ({ bodymen: { body } }, res, next) =>
   AlumnoRes.create(body)
@@ -39,3 +41,29 @@ export const destroy = ({ params }, res, next) =>
     .then((alumnoRes) => alumnoRes ? alumnoRes.remove() : null)
     .then(success(res, 204))
     .catch(next)
+  
+ export const alumnosOneUser = async ({ querymen: { query, select, cursor }, params }, res, next) =>{
+  var alumnosResLista = []
+  await User.findById(params.id)
+   .then(user => {
+
+      for (let i = 0; i < user.alumnos.length; i++) {
+        const element = user.alumnos[i];
+        AlumnoRes.findById(element)
+        .then(alumnoRes => alumnosResLista.push(alumnoRes))
+        .catch(next) 
+      }
+      res.send(alumnosResLista)
+   })
+   .then(success(res, 200))
+   .catch(next)
+  
+ }
+
+export const listadoAlumnos = ({params, user}, res, next) => {
+
+  user.alumnos;
+  AlumnoRes.find({$and: [{},{}]})
+
+
+}

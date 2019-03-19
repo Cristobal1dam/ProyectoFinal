@@ -1,8 +1,10 @@
 package com.example.jose.appfct.Fragments;
 
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -124,6 +126,7 @@ public class VisitaFragment extends Fragment {
 
 
             });
+            lanzarViewModel(ctx);
         }
         return view;
     }
@@ -144,6 +147,17 @@ public class VisitaFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    private void lanzarViewModel(Context ctx) {
+        VisitaViewModel comentarioViewModel = ViewModelProviders.of((FragmentActivity) ctx)
+                .get(VisitaViewModel.class);
+        comentarioViewModel.getAll().observe(getActivity(), new Observer<List<Visita>>() {
+            @Override
+            public void onChanged(@Nullable List<Visita> visitas) {
+                adapter.setNuevasVisitas(visitas);
+            }
+        });
     }
 
     /**

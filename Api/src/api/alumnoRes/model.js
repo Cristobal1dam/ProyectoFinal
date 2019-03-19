@@ -36,7 +36,7 @@ alumnoResSchema.methods = {
       id: this.id,
       nombre: this.nombre,
       telefono: this.telefono,
-      visita: moment(this.visita).format('D MMM h:mm a'),
+      visita: this.visita,
       empresa: this.empresa,
       alumnoid: this.alumnoid,
       createdAt: this.createdAt,

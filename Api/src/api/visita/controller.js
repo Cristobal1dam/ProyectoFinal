@@ -37,6 +37,8 @@ export const update = ({ bodymen: { body }, params }, res, next) =>
 
 export const destroy = async ({ params }, res, next) =>{
   var visitaVar
+  var alumnoVar
+ 
   await Visita.findById(params.id)
     .then(notFound(res))
     .then((visita) => {
@@ -46,8 +48,9 @@ export const destroy = async ({ params }, res, next) =>{
 
   await Alumno.find({'visitas.fecha': visitaVar.fecha})
   .then(alumno =>{
-    for (let index = 0; index < alumno.visitas.length; index++) {
-      const element = alumno.visitas[index];
+    alumnoVar = alumno
+    for (let index = 0; index < alumnoVar.visitas.length; index++) {
+      const element = alumnoVar.visitas[index];
         if(element == visitaVar.fecha)
           alumno.visitas.splice(index, 1);
     }

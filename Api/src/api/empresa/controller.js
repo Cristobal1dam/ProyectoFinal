@@ -102,26 +102,26 @@ var empresaVar
 
                        User.findOne({'alumnos': alumnoRes.id})
                       .then(user => {
+                        
 
                         for (let i = 0; i < user.alumnos.length; i++) {
                           const elmnt = user.alumnos[i];
                           if (elmnt == alumnoRes.id) {
                             user.alumnos.splice(i, 1);
-                            //user.__v = '';
                             }
                           }
-                           user.save()
+                          User.findOneAndUpdate({id: user.id}, {$set: {alumnos: user.alumnos}
+            }).catch(next)
             }).catch(next)
             }).catch(next)
             }).catch(next)
             }).catch(next)
         }
       }
-
       res.send(empresa)
     })
     .then(success(res, 204))
-    .catch(next)
+    .catch(next) 
   
   }
 

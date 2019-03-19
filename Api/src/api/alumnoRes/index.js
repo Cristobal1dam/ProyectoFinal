@@ -1,12 +1,23 @@
 import { Router } from 'express'
 import { middleware as query } from 'querymen'
 import { middleware as body } from 'bodymen'
-import { create, index, show, update, destroy } from './controller'
+import { create, index, show, update, destroy , alumnosOneUser} from './controller'
 import { schema } from './model'
 export AlumnoRes, { schema } from './model'
 
 const router = new Router()
 const { nombre, telefono, visita, empresa, alumnoid } = schema.tree
+
+/*const alumnoSchema = new Schema({
+  nombre: {
+    type: [String],
+    paths: ['nombre']
+  },
+  empresa: {
+    type: [String],
+    paths: ['empresa']
+  }  
+})*/
 
 /**
  * @api {post} /alumnoRes Create alumno res
@@ -76,4 +87,13 @@ router.put('/:id',
 router.delete('/:id',
   destroy)
 
+
+/*router.get('/alumnoRes/filtro',
+
+  filtradoAlumnos)*/
+
+/*router.get('/alumnosuser/:id',
+query(alumnoSchema),
+  alumnosOneUser)
+*/
 export default router

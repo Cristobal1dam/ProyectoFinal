@@ -9,6 +9,8 @@ export User, { schema } from './model'
 const router = new Router()
 const { email, password, name, picture, role } = schema.tree
 
+
+
 /**
  * @api {get} /users Retrieve users
  * @apiName RetrieveUsers

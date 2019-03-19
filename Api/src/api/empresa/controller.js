@@ -71,9 +71,6 @@ export const update = async ({ bodymen: { body }, params }, res, next) =>{
 
 export const destroy = async ({ params }, res, next) =>{
 var empresaVar
-var tutorVar
-var alumnoVar
-var alumnoResVar
 
   await Empresa.findById(params.id)
     .then(notFound(res))
@@ -83,49 +80,49 @@ var alumnoResVar
     })
     .catch(next)
 
-  await Tutor.findOne({'empresa' : empresaVar.id})
-  .then(tutor =>{
+  await Tutor.find({})
+  .then(tutores => {
+      for (let index = 0; index < tutores.length; index++) {
+        const element = tutores[index];
+        if(element.empresa == empresaVar.id){
+            Tutor.findById(element.id)
+            .then(tutor => {
 
-    tutorVar = tutor
-    return tutor ? tutor.remove() : null
-  })
-  .catch(next)
+              tutor.remove()
 
+              Alumno.findOne({'tutor' : tutor.id})
+                .then(alumno =>{
+                  
+                  alumno ? alumno.remove() : null
 
-  await Alumno.findOne({'tutor' : tutorVar.id})
-  .then(alumno =>{
-    alumnoVar = alumno
-    return alumno ? alumno.remove() : null
-  })
-  .catch(next)
+                  AlumnoRes.findOne({'alumnoid' : alumno.id})
+                  .then(alumnoRes =>{
 
+                       alumnoRes ? alumnoRes.remove() : null
 
+                       User.findOne({'alumnos': alumnoRes.id})
+                      .then(user => {
 
-  await AlumnoRes.findOne({'alumnoid' : alumnoVar.id})
-  .then(alumnoRes =>{
-
-    alumnoResVar = alumnoRes
-
-    return alumnoRes ? alumnoRes.remove() : null
-  }
-  )
-  .catch(next)
-
-   
-
-  await User.findOne({'alumnos': alumnoResVar.id})
-  .then(user => {
-
-      for (let index = 0; index < user.alumnos.length; index++) {
-        const element = user.alumnos[index];
-        if (element == alumnoResVar.id) {
-          user.alumnos.splice(index, 1);
+                        for (let i = 0; i < user.alumnos.length; i++) {
+                          const elmnt = user.alumnos[i];
+                          if (elmnt == alumnoRes.id) {
+                            user.alumnos.splice(i, 1);
+                            //user.__v = '';
+                            }
+                          }
+                           user.save()
+            }).catch(next)
+            }).catch(next)
+            }).catch(next)
+            }).catch(next)
         }
-    }
-    return user.save()
-      })
+      }
+
+      res.send(empresa)
+    })
     .then(success(res, 204))
     .catch(next)
+  
   }
 
 export const empresasDisp = async ( req, res, next) =>{

@@ -16,6 +16,9 @@ import com.example.jose.appfct.Fragments.AlumnosFragment.OnListFragmentInteracti
 import com.example.jose.appfct.Model.AlumnoRes;
 import com.example.jose.appfct.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 
@@ -43,6 +46,20 @@ public class MyAlumnoRecyclerViewAdapter extends RecyclerView.Adapter<MyAlumnoRe
         holder.mItem = mValues.get(position);
         holder.tvNombre.setText(holder.mItem.getNombre());
         holder.tvEmpresa.setText(holder.mItem.getEmpresa());
+
+        if(holder.mItem.getVisita() != null){
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        SimpleDateFormat outputFormat = new SimpleDateFormat("d MMM HH:mm");
+        Date date = null;
+        try {
+            date = inputFormat.parse(holder.mItem.getVisita());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        String formattedDate = outputFormat.format(date);
+        holder.tvVisita.setText(formattedDate);
+        }
 
         holder.ivTelefono.setOnClickListener(new View.OnClickListener() {
             @Override

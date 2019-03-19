@@ -1,8 +1,10 @@
 package com.example.jose.appfct.Fragments;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,13 +14,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.jose.appfct.Adapters.MyAlumnoRecyclerViewAdapter;
+import com.example.jose.appfct.Adapters.MyVisitaRecyclerViewAdapter;
+import com.example.jose.appfct.AlumnoDetalleActivity;
 import com.example.jose.appfct.Generator.ServiceGenerator;
-import com.example.jose.appfct.Generator.UtilUser;
-import com.example.jose.appfct.Model.AlumnoRes;
-import com.example.jose.appfct.Model.UserAlumnos;
+import com.example.jose.appfct.Model.Alumno;
+import com.example.jose.appfct.Model.Visita;
 import com.example.jose.appfct.R;
 import com.example.jose.appfct.Services.AlumnoService;
+import com.example.jose.appfct.ViewModels.VisitaViewModel;
 
 import java.util.List;
 
@@ -32,27 +35,30 @@ import retrofit2.Response;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class AlumnosFragment extends Fragment {
+public class VisitaFragment extends Fragment {
 
+    // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
+    // TODO: Customize parameters
     private int mColumnCount = 1;
-    private Context ctx;
-    private String id;
-    private List<AlumnoRes> alumnoList;
-    private MyAlumnoRecyclerViewAdapter adapter;
     private OnListFragmentInteractionListener mListener;
+    private MyVisitaRecyclerViewAdapter adapter;
+    VisitaViewModel visitaViewModel;
+    Context ctx;
+    List<Visita> visitaList;
+    String idAlumno;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public AlumnosFragment() {
+    public VisitaFragment() {
     }
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static AlumnosFragment newInstance(int columnCount) {
-        AlumnosFragment fragment = new AlumnosFragment();
+    public static VisitaFragment newInstance(int columnCount) {
+        VisitaFragment fragment = new VisitaFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
@@ -71,34 +77,39 @@ public class AlumnosFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_alumno_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_visita_list, container, false);
 
-        // Set the adapter
+
         if (view instanceof RecyclerView) {
             ctx = view.getContext();
-
             final RecyclerView recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(ctx));
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(ctx, mColumnCount));
             }
-            AlumnoService service = ServiceGenerator.createService(AlumnoService.class);
-            id = UtilUser.getId(ctx);
-            Call<UserAlumnos> call = service.getAlumnosList(id);
+            visitaViewModel = ViewModelProviders.of((FragmentActivity) ctx)
+                    .get(VisitaViewModel.class);
 
-            call.enqueue(new Callback<UserAlumnos>() {
+
+            AlumnoService service = ServiceGenerator.createService(AlumnoService.class);
+
+            idAlumno = visitaViewModel.getSelectedIdAlumno().getValue();
+
+            Call<Alumno> call = service.getOneAlumno(idAlumno);
+
+            call.enqueue(new Callback<Alumno>() {
 
                 @Override
-                public void onResponse(Call<UserAlumnos> call, Response<UserAlumnos> response) {
+                public void onResponse(Call<Alumno> call, Response<Alumno> response) {
                     if (response.code() != 200) {
-                        Toast.makeText(getActivity(), "Error en petición", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ctx, "Error en petición", Toast.LENGTH_SHORT).show();
                     } else {
-                        alumnoList = response.body().getAlumnos();
+                        visitaList = response.body().getVisitas();
 
-                        adapter = new MyAlumnoRecyclerViewAdapter(
+                        adapter = new MyVisitaRecyclerViewAdapter(
                                 ctx,
-                                alumnoList,
+                                visitaList,
                                 mListener
                         );
                         recyclerView.setAdapter(adapter);
@@ -106,12 +117,13 @@ public class AlumnosFragment extends Fragment {
                 }
 
                 @Override
-                public void onFailure(Call<UserAlumnos> call, Throwable t) {
+                public void onFailure(Call<Alumno> call, Throwable t) {
                     Log.e("NetworkFailure", t.getMessage());
-                    Toast.makeText(getActivity(), "Error de conexión", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ctx, "Error de conexión", Toast.LENGTH_SHORT).show();
                 }
-            });
 
+
+            });
         }
         return view;
     }
@@ -146,6 +158,6 @@ public class AlumnosFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(AlumnoRes item);
+        void onListFragmentInteraction();
     }
 }

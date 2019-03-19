@@ -7,4 +7,5 @@
     <string name="sharedpreferences_filename">login</string>
     <string name="Alumno">Alumno</string>
     <string name="Tutor">Tutor</string>
+    <string name="search">Buscar</string>
 </resources>

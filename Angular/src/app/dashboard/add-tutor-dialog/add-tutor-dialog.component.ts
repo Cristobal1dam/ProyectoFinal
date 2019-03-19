@@ -40,7 +40,7 @@ export class AddTutorDialogComponent implements OnInit {
     } );
 
   }
-    this.getAllEmpresasDisp();
+    this.getAllEmpresas();
 
   }
   closeDialog(){
@@ -65,13 +65,12 @@ export class AddTutorDialogComponent implements OnInit {
     }
   }
 
-  getAllEmpresasDisp(){
-    this.empresas = []
-    if(!this.data.add)
-      this.empresas.push(this.data.empresa)
+  getAllEmpresas(){
+   
+    
 
-    this.empresaService.getAllDisp().subscribe(empresaList => {
-       this.empresas.push.apply(this.empresas, empresaList);
+    this.empresaService.getAll().subscribe(empresaList => {
+       this.empresas = empresaList.rows;
     
       }, error =>{
         console.log(error);

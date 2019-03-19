@@ -1,10 +1,13 @@
 package com.example.jose.appfct;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,6 +20,7 @@ import com.example.jose.appfct.Model.Empresa;
 import com.example.jose.appfct.Model.Tutor;
 import com.example.jose.appfct.Model.UserAlumnos;
 import com.example.jose.appfct.Services.AlumnoService;
+import com.example.jose.appfct.ViewModels.VisitaViewModel;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,6 +33,7 @@ public class AlumnoDetalleActivity extends AppCompatActivity {
     Alumno alumno;
     Tutor tutor;
     Empresa empresa;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +102,24 @@ public class AlumnoDetalleActivity extends AppCompatActivity {
 
 
         });
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_detalle, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.action_visitas:
+                Intent i = new Intent(AlumnoDetalleActivity.this, VisitasActivity.class);
+                i.putExtra("id", idAlumno );
+                AlumnoDetalleActivity.this.startActivity(i);
+                break;
+        }
+        return true;
     }
 
     private void findViews() {

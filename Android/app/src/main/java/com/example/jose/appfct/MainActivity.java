@@ -2,6 +2,7 @@ package com.example.jose.appfct;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
 
 import com.example.jose.appfct.Fragments.AlumnosFragment;
 import com.example.jose.appfct.Model.AlumnoRes;
@@ -16,6 +17,11 @@ public class MainActivity extends AppCompatActivity implements AlumnosFragment.O
                 .beginTransaction()
                 .replace(R.id.contenedor_main, new AlumnosFragment())
                 .commit();
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_lista, menu);
+        return true;
     }
 
     @Override

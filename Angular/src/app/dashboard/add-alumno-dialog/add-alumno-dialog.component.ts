@@ -31,7 +31,7 @@ export class AddAlumnoDialogComponent implements OnInit {
 
 
     if(this.data.add){
-    this.getAllTutoresDisp(this.alumnoEdit)
+    this.getAllTutoresDispAdd()
   }else{
     this.getAlumnoEdit()
   }
@@ -75,23 +75,32 @@ export class AddAlumnoDialogComponent implements OnInit {
         telefono: [alumno.telefono , Validators.compose ( [ Validators.required ] )],
         tutor: ['' , Validators.compose ( [ Validators.required ] )]
       } );
-      this.getAllTutoresDisp(alumno)
+      this.getAllTutoresDispEdit(alumno)
      // this.dialogRef.close();
     });
 
 
   }
 
-  getAllTutoresDisp(alumno:OneAlumnoResponse){
+  getAllTutoresDispEdit(alumno:OneAlumnoResponse){
     this.tutores = []
     console.log("Nombre tutor =>" + alumno.tutor.nombre)
-    if(!this.data.add){
       this.tutorAlumnoEdit = new TutorDtoDisp (alumno.tutor.id,alumno.tutor.nombre)
       this.tutores.push(<TutorDispResponse>this.tutorAlumnoEdit)
-    }
+
 
     this.tutorService.getAllDisp().subscribe(tutorList => {
       this.tutores.push.apply(this.tutores, tutorList);
+      console.log(this.tutores)
+      }, error =>{
+        console.log(error);
+      });
+  }
+
+  getAllTutoresDispAdd(){
+    
+    this.tutorService.getAllDisp().subscribe(tutorList => {
+      this.tutores = tutorList;
       console.log(this.tutores)
       }, error =>{
         console.log(error);

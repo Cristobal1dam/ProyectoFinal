@@ -25,6 +25,7 @@ const { email, password, name, picture, role } = schema.tree
 router.get('/',
  /* token({ required: true, roles: ['admin'] }),*/
   query(),
+  token({ required: true }),
   index)
 
 /**
@@ -48,6 +49,7 @@ router.get('/me',
  * @apiError 404 User not found.
  */
 router.get('/:id',
+token({ required: true }),
   show)
 
 /**
@@ -86,6 +88,7 @@ router.post('/',
  */
 router.put('/:id',
   body({ name, picture }),
+  token({ required: true }),
   update)
 
 /**
@@ -115,6 +118,7 @@ router.put('/:id/password',
  * @apiError 404 User not found.
  */
 router.delete('/:id',
+token({ required: true }),
   destroy)
 
 router.get('/:id/:nombre',

@@ -3,6 +3,7 @@ import { middleware as query } from 'querymen'
 import { middleware as body } from 'bodymen'
 import { create, index, show, update, destroy , alumnosOneUser} from './controller'
 import { schema } from './model'
+import { token } from '../../services/passport'
 export AlumnoRes, { schema } from './model'
 
 const router = new Router()
@@ -34,6 +35,7 @@ const { nombre, telefono, visita, empresa, alumnoid } = schema.tree
  */
 router.post('/',
   body({ nombre, telefono, visita, empresa, alumnoid }),
+  token({ required: true }),
   create)
 
 /**
@@ -47,6 +49,7 @@ router.post('/',
  */
 router.get('/',
   query(),
+  token({ required: true }),
   index)
 
 /**
@@ -58,6 +61,7 @@ router.get('/',
  * @apiError 404 Alumno res not found.
  */
 router.get('/:id',
+token({ required: true }),
   show)
 
 /**
@@ -75,6 +79,7 @@ router.get('/:id',
  */
 router.put('/:id',
   body({ nombre, telefono, visita, empresa, alumnoid }),
+  token({ required: true }),
   update)
 
 /**
@@ -85,6 +90,7 @@ router.put('/:id',
  * @apiError 404 Alumno res not found.
  */
 router.delete('/:id',
+token({ required: true }),
   destroy)
 
 

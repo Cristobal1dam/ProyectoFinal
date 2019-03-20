@@ -14,10 +14,15 @@ import android.widget.Toast;
 
 import com.example.jose.appfct.Adapters.MyVisitaRecyclerViewAdapter;
 import com.example.jose.appfct.Generator.ServiceGenerator;
+import com.example.jose.appfct.Generator.TipoAutenticacion;
+import com.example.jose.appfct.Generator.UtilToken;
+import com.example.jose.appfct.Generator.UtilUser;
 import com.example.jose.appfct.Model.Alumno;
+import com.example.jose.appfct.Model.UserAlumnos;
 import com.example.jose.appfct.R;
 import com.example.jose.appfct.Services.AlumnoService;
 import com.example.jose.appfct.Services.VisitaService;
+import com.example.jose.appfct.ViewModels.AlumnoViewModel;
 import com.example.jose.appfct.ViewModels.VisitaViewModel;
 
 import retrofit2.Call;
@@ -60,7 +65,7 @@ public class EliminarVisitaDialogFragment extends DialogFragment {
                 .get(VisitaViewModel.class);
 
 
-        VisitaService service = ServiceGenerator.createService(VisitaService.class);
+        VisitaService service = ServiceGenerator.createService(VisitaService.class,  UtilToken.getToken(ctx), TipoAutenticacion.JWT);
 
 
         Call<Alumno> call = service.deleteVisita(visitaViewModel.getSelectedidVisita().getValue());
@@ -74,6 +79,7 @@ public class EliminarVisitaDialogFragment extends DialogFragment {
                 } else {
                     Toast.makeText(ctx, "Visita eliminada", Toast.LENGTH_SHORT).show();
                     getVisitas(ctx);
+                    getAlumnos(ctx);
 
                 }
             }
@@ -98,7 +104,7 @@ public class EliminarVisitaDialogFragment extends DialogFragment {
                 .get(VisitaViewModel.class);
 
 
-        AlumnoService service = ServiceGenerator.createService(AlumnoService.class);
+        AlumnoService service = ServiceGenerator.createService(AlumnoService.class, UtilToken.getToken(ctx), TipoAutenticacion.JWT);
 
 
         Call<Alumno> call = service.getOneAlumno(visitaViewModel.getSelectedIdAlumno().getValue());
@@ -126,6 +132,34 @@ public class EliminarVisitaDialogFragment extends DialogFragment {
         });
 
 
+    }
+
+    public void getAlumnos(final Context ctx){
+        final AlumnoViewModel alumnoViewModel = ViewModelProviders.of((FragmentActivity) ctx)
+                .get(AlumnoViewModel.class);
+        AlumnoService service = ServiceGenerator.createService(AlumnoService.class, UtilToken.getToken(ctx), TipoAutenticacion.JWT);
+        String id = UtilUser.getId(ctx);
+        Call<UserAlumnos> call = service.getAlumnosList(id);
+
+        call.enqueue(new Callback<UserAlumnos>() {
+
+            @Override
+            public void onResponse(Call<UserAlumnos> call, Response<UserAlumnos> response) {
+                if (response.code() != 200) {
+                    Toast.makeText(getActivity(), "Error en petición", Toast.LENGTH_SHORT).show();
+                } else {
+                    alumnoViewModel.selectAlumnoAllList(response.body().getAlumnos());
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserAlumnos> call, Throwable t) {
+                Log.e("NetworkFailure", t.getMessage());
+                Toast.makeText(getActivity(), "Error de conexión", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 }

@@ -1,8 +1,12 @@
 package com.example.jose.appfct.Fragments;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,11 +18,17 @@ import android.widget.Toast;
 
 import com.example.jose.appfct.Adapters.MyAlumnoRecyclerViewAdapter;
 import com.example.jose.appfct.Generator.ServiceGenerator;
+import com.example.jose.appfct.Generator.TipoAutenticacion;
+import com.example.jose.appfct.Generator.UtilToken;
 import com.example.jose.appfct.Generator.UtilUser;
+import com.example.jose.appfct.MainActivity;
 import com.example.jose.appfct.Model.AlumnoRes;
 import com.example.jose.appfct.Model.UserAlumnos;
+import com.example.jose.appfct.Model.Visita;
 import com.example.jose.appfct.R;
 import com.example.jose.appfct.Services.AlumnoService;
+import com.example.jose.appfct.ViewModels.AlumnoViewModel;
+import com.example.jose.appfct.ViewModels.VisitaViewModel;
 
 import java.util.List;
 
@@ -41,6 +51,7 @@ public class AlumnosFragment extends Fragment {
     private List<AlumnoRes> alumnoList;
     private MyAlumnoRecyclerViewAdapter adapter;
     private OnListFragmentInteractionListener mListener;
+    private  AlumnoViewModel alumnoViewModel;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -88,7 +99,9 @@ public class AlumnosFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(ctx, mColumnCount));
             }
-            AlumnoService service = ServiceGenerator.createService(AlumnoService.class);
+            alumnoViewModel = ViewModelProviders.of((FragmentActivity) getActivity())
+                    .get(AlumnoViewModel.class);
+            AlumnoService service = ServiceGenerator.createService(AlumnoService.class, UtilToken.getToken(ctx), TipoAutenticacion.JWT);
             id = UtilUser.getId(ctx);
             Call<UserAlumnos> call = service.getAlumnosList(id);
 
@@ -101,12 +114,16 @@ public class AlumnosFragment extends Fragment {
                     } else {
                         alumnoList = response.body().getAlumnos();
 
+
                         adapter = new MyAlumnoRecyclerViewAdapter(
                                 ctx,
                                 alumnoList,
                                 mListener
                         );
                         recyclerView.setAdapter(adapter);
+
+                        alumnoViewModel.selectAlumnoList(alumnoList);
+                        alumnoViewModel.selectAlumnoAllList(alumnoList);
                     }
                 }
 
@@ -116,6 +133,7 @@ public class AlumnosFragment extends Fragment {
                     Toast.makeText(getActivity(), "Error de conexión", Toast.LENGTH_SHORT).show();
                 }
             });
+            lanzarViewModel(ctx);
 
         }
         return view;
@@ -137,6 +155,17 @@ public class AlumnosFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    private void lanzarViewModel(Context ctx) {
+        AlumnoViewModel alumnoViewModel = ViewModelProviders.of((FragmentActivity) ctx)
+                .get(AlumnoViewModel.class);
+        alumnoViewModel.getAll().observe(getActivity(), new Observer<List<AlumnoRes>>() {
+            @Override
+            public void onChanged(@Nullable List<AlumnoRes> alumnos) {
+                adapter.setNuevosAlumnos(alumnos);
+            }
+        });
     }
 
     /**

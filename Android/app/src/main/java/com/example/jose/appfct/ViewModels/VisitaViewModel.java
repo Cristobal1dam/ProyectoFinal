@@ -25,8 +25,8 @@ public class VisitaViewModel extends ViewModel{
         return idAlumno;
     }
 
-    public void selectVisitaList(List<Visita> comentarios) {
-        listaVisitas.setValue(comentarios);
+    public void selectVisitaList(List<Visita> visitas) {
+        listaVisitas.setValue(visitas);
     }
 
 

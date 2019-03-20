@@ -2,6 +2,7 @@ import { Router } from 'express'
 import { middleware as query } from 'querymen'
 import { middleware as body } from 'bodymen'
 import { create, index, show, update, destroy, createVisita, realizadaVisita } from './controller'
+import { token } from '../../services/passport'
 import { schema } from './model'
 export Visita, { schema } from './model'
 
@@ -21,6 +22,7 @@ const { titulo, fecha, realizada } = schema.tree
  */
 router.post('/:id',
   body({ titulo, fecha, realizada }),
+  token({ required: true }),
   createVisita)
 
 /**
@@ -33,6 +35,7 @@ router.post('/:id',
  * @apiError {Object} 400 Some parameters may contain invalid values.
  */
 router.get('/',
+token({ required: true }),
   query(),
   index)
 
@@ -45,6 +48,7 @@ router.get('/',
  * @apiError 404 Visita not found.
  */
 router.get('/:id',
+token({ required: true }),
   show)
 
 /**
@@ -60,6 +64,7 @@ router.get('/:id',
  */
 router.put('/:id',
   body({ titulo, fecha, realizada }),
+  token({ required: true }),
   update)
 
 /**
@@ -70,9 +75,11 @@ router.put('/:id',
  * @apiError 404 Visita not found.
  */
 router.delete('/:id',
+token({ required: true }),
   destroy)
 
 router.put('/realizada/:id',
+token({ required: true }),
 realizadaVisita)
 
 export default router

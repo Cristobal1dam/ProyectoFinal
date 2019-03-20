@@ -3,6 +3,7 @@ import { middleware as query } from 'querymen'
 import { middleware as body } from 'bodymen'
 import { create, index, show, update, destroy, createAlumno } from './controller'
 import { schema } from './model'
+import { token } from '../../services/passport'
 export Alumno, { schema } from './model'
 
 const router = new Router()
@@ -23,6 +24,7 @@ const { nombre, email, telefono, tutor, visitas } = schema.tree
  */
 router.post('/:id',
   body({ nombre, email, telefono, tutor, visitas }),
+  token({ required: true }),
   createAlumno)
 
 /**
@@ -35,6 +37,7 @@ router.post('/:id',
  * @apiError {Object} 400 Some parameters may contain invalid values.
  */
 router.get('/',
+token({ required: true }),
   query(),
   index)
 
@@ -47,6 +50,7 @@ router.get('/',
  * @apiError 404 Alumno not found.
  */
 router.get('/:id',
+token({ required: true }),
   show)
 
 /**
@@ -64,6 +68,7 @@ router.get('/:id',
  */
 router.put('/:id',
   body({ nombre, email, telefono, tutor, visitas }),
+  token({ required: true }),
   update)
 
 /**
@@ -74,6 +79,7 @@ router.put('/:id',
  * @apiError 404 Alumno not found.
  */
 router.delete('/:id',
+token({ required: true }),
   destroy)
 
 export default router

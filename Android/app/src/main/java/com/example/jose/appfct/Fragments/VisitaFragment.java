@@ -19,6 +19,8 @@ import android.widget.Toast;
 import com.example.jose.appfct.Adapters.MyVisitaRecyclerViewAdapter;
 import com.example.jose.appfct.AlumnoDetalleActivity;
 import com.example.jose.appfct.Generator.ServiceGenerator;
+import com.example.jose.appfct.Generator.TipoAutenticacion;
+import com.example.jose.appfct.Generator.UtilToken;
 import com.example.jose.appfct.Model.Alumno;
 import com.example.jose.appfct.Model.Visita;
 import com.example.jose.appfct.R;
@@ -94,7 +96,7 @@ public class VisitaFragment extends Fragment {
                     .get(VisitaViewModel.class);
 
 
-            AlumnoService service = ServiceGenerator.createService(AlumnoService.class);
+            AlumnoService service = ServiceGenerator.createService(AlumnoService.class, UtilToken.getToken(ctx), TipoAutenticacion.JWT);
 
             idAlumno = visitaViewModel.getSelectedIdAlumno().getValue();
 

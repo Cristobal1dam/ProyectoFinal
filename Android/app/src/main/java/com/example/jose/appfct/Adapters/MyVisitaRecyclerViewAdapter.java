@@ -15,6 +15,8 @@ import android.widget.Toast;
 import com.example.jose.appfct.Dialogs.EliminarVisitaDialogFragment;
 import com.example.jose.appfct.Fragments.VisitaFragment.OnListFragmentInteractionListener;
 import com.example.jose.appfct.Generator.ServiceGenerator;
+import com.example.jose.appfct.Generator.TipoAutenticacion;
+import com.example.jose.appfct.Generator.UtilToken;
 import com.example.jose.appfct.Model.Alumno;
 import com.example.jose.appfct.Model.Visita;
 import com.example.jose.appfct.R;
@@ -142,7 +144,7 @@ public class MyVisitaRecyclerViewAdapter extends RecyclerView.Adapter<MyVisitaRe
     public void realizarVisita(final Context ctx, String idVisita) {
 
 
-        VisitaService service = ServiceGenerator.createService(VisitaService.class);
+        VisitaService service = ServiceGenerator.createService(VisitaService.class, UtilToken.getToken(ctx), TipoAutenticacion.JWT);
 
 
         Call<Alumno> call = service.visitaRealizada(idVisita);
@@ -179,7 +181,7 @@ public class MyVisitaRecyclerViewAdapter extends RecyclerView.Adapter<MyVisitaRe
                 .get(VisitaViewModel.class);
 
 
-        AlumnoService service = ServiceGenerator.createService(AlumnoService.class);
+        AlumnoService service = ServiceGenerator.createService(AlumnoService.class, UtilToken.getToken(ctx), TipoAutenticacion.JWT);
 
 
         Call<Alumno> call = service.getOneAlumno(visitaViewModel.getSelectedIdAlumno().getValue());

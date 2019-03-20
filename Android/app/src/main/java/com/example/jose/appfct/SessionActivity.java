@@ -31,7 +31,7 @@ public class SessionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_session);
         findViews();
-
+        getSupportActionBar().hide();
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,9 +41,6 @@ public class SessionActivity extends AppCompatActivity {
                     Toast.makeText(SessionActivity.this, "No puede haber campos vacios", Toast.LENGTH_SHORT).show();
             }
         });
-
-
-
     }
 
     private void peticionLogin(String email, String password) {
@@ -64,7 +61,7 @@ public class SessionActivity extends AppCompatActivity {
 
                     UtilToken.setToken(SessionActivity.this, response.body().getToken());
                     UtilUser.setUserInfo(SessionActivity.this, response.body().getUser());
-
+                    finish();
                     startActivity(new Intent(SessionActivity.this, MainActivity.class));
                 }
             }

@@ -18,6 +18,7 @@ export class EmpresaService {
     const requestOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem("token")}`,
         'Access-Control-Allow-Origin': '*'
       })
     };
@@ -29,6 +30,7 @@ export class EmpresaService {
     const requestOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem("token")}`,
         'Access-Control-Allow-Origin': '*'
       })
     };
@@ -40,6 +42,7 @@ export class EmpresaService {
     const requestOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem("token")}`,
         'Access-Control-Allow-Origin': '*'
       })
     };
@@ -51,6 +54,7 @@ export class EmpresaService {
     const requestOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem("token")}`,
         'Access-Control-Allow-Origin': '*'
       })
     };
@@ -61,6 +65,7 @@ export class EmpresaService {
     const requestOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem("token")}`,
         'Access-Control-Allow-Origin': '*'
       })
     };

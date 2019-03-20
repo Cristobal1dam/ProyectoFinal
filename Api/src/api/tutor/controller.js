@@ -88,10 +88,14 @@ export const tutoresDisp = async ( req, res, next) =>{
   var listaTutores
   var tutoresNoDisp = []
   var tutoresDisp = []
+  var listaAllTutores
   
   await Tutor.find()
   .then(tutores =>{
     listaTutores = tutores
+    listaAllTutores = tutores
+
+    console.log("Tutores => "+ tutores)
   })
   .catch(next)
 
@@ -104,14 +108,15 @@ export const tutoresDisp = async ( req, res, next) =>{
       const tutor = listaTutores[index];
 
 
-      for (let index = 0; index < alumnos.length; index++) {
-        const alumno = alumnos[index];
+      for (let i = 0; i < alumnos.length; i++) {
+        const alumno = alumnos[i];
         if(tutor.id == alumno.tutor)
             tutoresNoDisp.push(tutor)
 
       }
       
     }
+    console.log("tutores no disp =>" + tutoresNoDisp)
 
     for (let index = 0; index < tutoresNoDisp.length; index++) {
       const tutorNoDisp = tutoresNoDisp[index];
@@ -119,17 +124,18 @@ export const tutoresDisp = async ( req, res, next) =>{
       for (let i = 0; i < listaTutores.length; i++) {
         const tutor2 = listaTutores[i];
    
-        if(tutorNoDisp.id != tutor2.id)
-        tutoresDisp.push(tutor2)
+        if(tutorNoDisp.id == tutor2.id)
+          listaTutores.splice(i, 1)
 
       }
         
       }
+      console.log("Tutores disp =>" + listaTutores)
 
       if(tutoresNoDisp.length == 0){
-      res.send(listaTutores)
+      res.send(listaAllTutores)
       }else
-      res.send(tutoresDisp)
+      res.send(listaTutores)
       
 
   })

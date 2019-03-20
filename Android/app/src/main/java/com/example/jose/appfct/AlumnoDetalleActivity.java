@@ -15,6 +15,9 @@ import android.widget.Toast;
 
 import com.example.jose.appfct.Adapters.MyAlumnoRecyclerViewAdapter;
 import com.example.jose.appfct.Generator.ServiceGenerator;
+import com.example.jose.appfct.Generator.TipoAutenticacion;
+import com.example.jose.appfct.Generator.UtilToken;
+import com.example.jose.appfct.Generator.UtilUser;
 import com.example.jose.appfct.Model.Alumno;
 import com.example.jose.appfct.Model.Empresa;
 import com.example.jose.appfct.Model.Tutor;
@@ -47,7 +50,8 @@ public class AlumnoDetalleActivity extends AppCompatActivity {
         idAlumno = extras.getString("id");
 
 
-        AlumnoService service = ServiceGenerator.createService(AlumnoService.class);
+
+        AlumnoService service = ServiceGenerator.createService(AlumnoService.class, UtilToken.getToken(AlumnoDetalleActivity.this), TipoAutenticacion.JWT);
 
         Call<Alumno> call = service.getOneAlumno(idAlumno);
 
@@ -87,8 +91,10 @@ public class AlumnoDetalleActivity extends AppCompatActivity {
                     String latitude = latlong[0];
                     String longitude = latlong[1];
 
-                    setIntentMapa(tvDireccion, longitude,latitude);
-                    setIntentMapa(ivDireccion, longitude,latitude);
+                    setIntentMapa(tvDireccion, longitude,latitude,empresa.getNombre());
+                    setIntentMapa(ivDireccion, longitude,latitude,empresa.getNombre());
+
+                    getSupportActionBar().setTitle(alumno.getNombre());
 
 
                 }
@@ -116,6 +122,7 @@ public class AlumnoDetalleActivity extends AppCompatActivity {
             case R.id.action_visitas:
                 Intent i = new Intent(AlumnoDetalleActivity.this, VisitasActivity.class);
                 i.putExtra("id", idAlumno );
+                i.putExtra("nombre", tvNombreAlumno.getText().toString());
                 AlumnoDetalleActivity.this.startActivity(i);
                 break;
         }
@@ -151,11 +158,11 @@ public class AlumnoDetalleActivity extends AppCompatActivity {
         });
     }
 
-    private void setIntentMapa(View view, final String lon, final String lat){
+    private void setIntentMapa(View view, final String lon, final String lat, final String empresaNombre){
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String strUri = "http://maps.google.com/maps?q=loc:" + lat + "," + lon;
+                String strUri = "http://maps.google.com/maps?q=loc:" + lat + "," + lon + " (" + empresaNombre + ")";
                 Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(strUri));
                 intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
                 AlumnoDetalleActivity.this.startActivity(intent);
@@ -171,7 +178,7 @@ public class AlumnoDetalleActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
                         "mailto",email, null));
-                startActivity(Intent.createChooser(emailIntent, "Send email..."));
+                startActivity(Intent.createChooser(emailIntent, "Mandar email..."));
             }
         });
 

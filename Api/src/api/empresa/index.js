@@ -3,6 +3,7 @@ import { middleware as query } from 'querymen'
 import { middleware as body } from 'bodymen'
 import { create, index, show, update, destroy,empresasDisp } from './controller'
 import { schema } from './model'
+import { token } from '../../services/passport'
 export Empresa, { schema } from './model'
 
 const router = new Router()
@@ -21,6 +22,7 @@ const { nombre, direccion, loc } = schema.tree
  */
 router.post('/',
   body({ nombre, direccion, loc }),
+  token({ required: true }),
   create)
 
 /**
@@ -34,11 +36,13 @@ router.post('/',
  */
 router.get('/',
   query(),
+  token({ required: true }),
   index)
 
   
 
   router.get('/disp',
+  token({ required: true }),
   empresasDisp)
 
 /**
@@ -50,6 +54,7 @@ router.get('/',
  * @apiError 404 Empresa not found.
  */
 router.get('/:id',
+token({ required: true }),
   show)
 
 /**
@@ -65,6 +70,7 @@ router.get('/:id',
  */
 router.put('/:id',
   body({ nombre, direccion, loc }),
+  token({ required: true }),
   update)
 
 /**
@@ -75,6 +81,7 @@ router.put('/:id',
  * @apiError 404 Empresa not found.
  */
 router.delete('/:id',
+token({ required: true }),
   destroy)
 
 export default router

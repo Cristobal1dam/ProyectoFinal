@@ -28,6 +28,7 @@ public class VisitasActivity extends AppCompatActivity implements VisitaFragment
 
         Bundle extras = getIntent().getExtras();
         idAlumno = extras.getString("id");
+        getSupportActionBar().setTitle(extras.getString("nombre"));
         visitaViewModel = ViewModelProviders.of(VisitasActivity.this)
                 .get(VisitaViewModel.class);
         visitaViewModel.selectIdAlumno(idAlumno);
@@ -46,6 +47,8 @@ public class VisitasActivity extends AppCompatActivity implements VisitaFragment
                 dialogoAdd.show((VisitasActivity.this).getSupportFragmentManager(), "dialog");
             }
         });
+
+
 
     }
 

@@ -26,7 +26,7 @@ export class SigninComponent implements OnInit {
 
 
   onSubmit() {
-    
+    console.log('Valroes del form => ' + this.form.value);
     const login: LoginDto = <LoginDto>this.form.value;
     this.loginService.login(login).subscribe(loginResp => {
 

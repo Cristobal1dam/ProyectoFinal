@@ -15,4 +15,8 @@
     <string name="Fecha">Fecha</string>
     <string name="Tituttlo">Título</string>
     <string name="Hora">Hora</string>
+    <string name="dialog_message">¿Estás seguro que quiere cerrar sesión?</string>
+    <string name="dialog_title">Cerrar sesión</string>
+    <string name="ok">Aceptar</string>
+    <string name="cancel">Cancelar</string>
 </resources>

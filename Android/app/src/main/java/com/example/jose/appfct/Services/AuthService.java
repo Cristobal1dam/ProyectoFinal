@@ -17,6 +17,4 @@ public interface AuthService {
     @POST("/auth")
     Call<LoginResponse> doLogin(@Header("Authorization") String authorization);
 
-
-
 }

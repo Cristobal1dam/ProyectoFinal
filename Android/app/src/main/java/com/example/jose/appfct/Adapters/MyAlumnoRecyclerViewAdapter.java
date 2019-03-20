@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.example.jose.appfct.AlumnoDetalleActivity;
 import com.example.jose.appfct.Fragments.AlumnosFragment.OnListFragmentInteractionListener;
 import com.example.jose.appfct.Model.AlumnoRes;
+import com.example.jose.appfct.Model.Visita;
 import com.example.jose.appfct.R;
 
 import java.text.ParseException;
@@ -25,9 +26,9 @@ import java.util.Date;
 import java.util.List;
 
 
-public class MyAlumnoRecyclerViewAdapter extends RecyclerView.Adapter<MyAlumnoRecyclerViewAdapter.ViewHolder> implements Filterable {
+public class MyAlumnoRecyclerViewAdapter extends RecyclerView.Adapter<MyAlumnoRecyclerViewAdapter.ViewHolder> {
 
-    private final List<AlumnoRes> mValues;
+    private List<AlumnoRes> mValues;
     private List<AlumnoRes> mValuesFiltered;
     private final OnListFragmentInteractionListener mListener;
     private Context contexto;
@@ -36,6 +37,11 @@ public class MyAlumnoRecyclerViewAdapter extends RecyclerView.Adapter<MyAlumnoRe
         contexto= ctx;
         mValues = items;
         mListener = listener;
+    }
+
+    public void setNuevosAlumnos(List<AlumnoRes> nuevosAlumnos) {
+        this.mValues = nuevosAlumnos;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -63,7 +69,10 @@ public class MyAlumnoRecyclerViewAdapter extends RecyclerView.Adapter<MyAlumnoRe
 
         String formattedDate = outputFormat.format(date);
         holder.tvVisita.setText(formattedDate);
+        }else{
+            holder.tvVisita.setText("No tiene visitas");
         }
+
 
         holder.ivTelefono.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,40 +103,6 @@ public class MyAlumnoRecyclerViewAdapter extends RecyclerView.Adapter<MyAlumnoRe
         return mValues.size();
     }
 
-    @Override
-    public Filter getFilter() {
-        return new Filter() {
-            @Override
-            protected FilterResults performFiltering(CharSequence charSequence) {
-                String charString = charSequence.toString();
-                if (charString.isEmpty()) {
-                    mValuesFiltered = mValues;
-                } else {
-                    List<AlumnoRes> filteredList = new ArrayList<>();
-                    for (AlumnoRes row : mValues) {
-
-                        // name match condition. this might differ depending on your requirement
-                        // here we are looking for name or phone number match
-                        if (row.getNombre().toLowerCase().contains(charString.toLowerCase()) || row.getEmpresa().contains(charSequence)) {
-                            filteredList.add(row);
-                        }
-                    }
-
-                    mValuesFiltered = filteredList;
-                }
-
-                FilterResults filterResults = new FilterResults();
-                filterResults.values = mValuesFiltered;
-                return filterResults;
-            }
-
-            @Override
-            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                mValuesFiltered = (ArrayList<AlumnoRes>) filterResults.values;
-                notifyDataSetChanged();
-            }
-        };
-    }
 
 
 

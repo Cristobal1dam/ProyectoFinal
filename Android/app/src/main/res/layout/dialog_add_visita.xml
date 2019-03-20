@@ -10,13 +10,11 @@
         android:id="@+id/editTextDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="@string/Fecha"
         android:inputType="date"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTitulo" />
 
@@ -24,13 +22,11 @@
         android:id="@+id/editTextTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="@string/Hora"
         android:inputType="time"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
 
@@ -38,13 +34,11 @@
         android:id="@+id/editTextTitulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="@string/Tituttlo"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/editTextDate"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
@@ -53,6 +47,8 @@
         android:layout_height="35dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/editTextDate"
         app:layout_constraintTop_toTopOf="@+id/editTextDate"
         app:srcCompat="@drawable/ic_event_note_black_24dp" />
@@ -62,7 +58,9 @@
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/editTextTime"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/editTextTime"
         app:layout_constraintTop_toTopOf="@+id/editTextTime"
         app:srcCompat="@drawable/ic_access_time_black_24dp" />

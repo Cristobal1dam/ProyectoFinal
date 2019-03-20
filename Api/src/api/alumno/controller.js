@@ -115,6 +115,7 @@ export const destroy = async ({ params }, res, next) =>{
         }
       }
     }
+    res.send(alumnoVar)
     })
     .then(success(res, 204))
     .catch(next)

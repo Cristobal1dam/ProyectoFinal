@@ -136,4 +136,22 @@ var userVar
     .catch(next)
   }
 
+  export const filtrarAlumnos = async ({ params }, res, next) =>{
+   
+    await User.findById(params.id)
+    .then(user => {
+      console.log("Nombre por el que busca => " + params.nombre)
+      Alumno.find({$and: [{id: {$in: user.alumnos}},{nombre: {$regex: params.nombre}}]})
+      .then(alumnos => {
+        console.log("Alumnos filtrados => " + alumnos)
+        user.alumnos = alumnos
+     
+        res.send(user)
+    }).then(success(res, 200))
+    .catch(next)
+    }).catch(next)
+
+    
+  }
+
  

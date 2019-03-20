@@ -37,7 +37,7 @@ export const update = ({ bodymen: { body }, params }, res, next) =>
 
 export const destroy = async ({ params }, res, next) =>{
   var visitaVar
-  var alumnoVar
+  
  
   await Visita.findById(params.id)
     .then(notFound(res))
@@ -46,18 +46,19 @@ export const destroy = async ({ params }, res, next) =>{
       visita.remove()})
       .catch(next)
 
-  await Alumno.find({'visitas.fecha': visitaVar.fecha})
+  await Alumno.findOne({'visitas.fecha': visitaVar.fecha})
   .then(alumno =>{
-    alumnoVar = alumno
-    for (let index = 0; index < alumnoVar.visitas.length; index++) {
-      const element = alumnoVar.visitas[index];
-        if(element == visitaVar.fecha)
-          alumno.visitas.splice(index, 1);
+    
+    for (let index = 0; index < alumno.visitas.length; index++) {
+      const element = alumno.visitas[index];
+        if(element.fecha.getTime() === visitaVar.fecha.getTime()){
+        alumno.visitas.splice(index, 1);
+        }
     }
     return alumno.save()
   })
-    .then(success(res, 204))
-    .catch(next)
+  .then(success(res, 204))
+  .catch(next)
   }
 export const createVisita = async ({ bodymen: { body }, params }, res, next) =>{
 
@@ -93,4 +94,36 @@ export const createVisita = async ({ bodymen: { body }, params }, res, next) =>{
                 .catch(next)
 
       
-      }    
+      }
+      
+export const realizadaVisita = async ({params},res, next) => {
+var visitaVar
+  await Visita.findById(params.id)
+  .then(notFound(res))
+  .then((visita) => {
+    console.log("Realizada antes =>"+visita.realizada)
+    visita.realizada = (visita.realizada) ? false : true
+    console.log("Realizada despues =>"+visita.realizada)
+    visitaVar = visita
+    visita.save()
+
+   })
+    .catch(next)
+        
+        await Alumno.findOne({'visitas.fecha': visitaVar.fecha})
+        .then(alumno =>{
+    
+          for (let index = 0; index < alumno.visitas.length; index++) {
+            const element = alumno.visitas[index];
+              if(element.fecha.getTime() === visitaVar.fecha.getTime()){
+                alumno.visitas.splice(index, 1);
+                alumno.visitas.push(visitaVar)
+              }
+          }
+           alumno.save()
+
+        res.send(visitaVar)
+      })
+      .then(success(res, 400))
+      .catch(next)
+    }    

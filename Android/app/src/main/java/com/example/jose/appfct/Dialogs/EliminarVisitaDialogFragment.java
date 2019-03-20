@@ -50,6 +50,7 @@ public class EliminarVisitaDialogFragment extends DialogFragment {
                     }
                 });
 
+
         return builder.create();
     }
 
@@ -62,7 +63,7 @@ public class EliminarVisitaDialogFragment extends DialogFragment {
         VisitaService service = ServiceGenerator.createService(VisitaService.class);
 
 
-        Call<Alumno> call = service.deleteVisita(visitaViewModel.getSelectedIdAlumno().getValue());
+        Call<Alumno> call = service.deleteVisita(visitaViewModel.getSelectedidVisita().getValue());
 
         call.enqueue(new Callback<Alumno>() {
 
@@ -71,7 +72,7 @@ public class EliminarVisitaDialogFragment extends DialogFragment {
                 if (response.code() != 204) {
                     Toast.makeText(ctx, "Error en petición", Toast.LENGTH_SHORT).show();
                 } else {
-
+                    Toast.makeText(ctx, "Visita eliminada", Toast.LENGTH_SHORT).show();
                     getVisitas(ctx);
 
                 }
@@ -110,6 +111,7 @@ public class EliminarVisitaDialogFragment extends DialogFragment {
                     Toast.makeText(ctx, "Error en petición", Toast.LENGTH_SHORT).show();
                 } else {
                     visitaViewModel.selectVisitaList(response.body().getVisitas());
+
 
                 }
             }

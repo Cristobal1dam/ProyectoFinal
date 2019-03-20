@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,13 +20,15 @@ import com.example.jose.appfct.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 
-public class MyAlumnoRecyclerViewAdapter extends RecyclerView.Adapter<MyAlumnoRecyclerViewAdapter.ViewHolder> {
+public class MyAlumnoRecyclerViewAdapter extends RecyclerView.Adapter<MyAlumnoRecyclerViewAdapter.ViewHolder> implements Filterable {
 
     private final List<AlumnoRes> mValues;
+    private List<AlumnoRes> mValuesFiltered;
     private final OnListFragmentInteractionListener mListener;
     private Context contexto;
 
@@ -89,6 +93,44 @@ public class MyAlumnoRecyclerViewAdapter extends RecyclerView.Adapter<MyAlumnoRe
     public int getItemCount() {
         return mValues.size();
     }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String charString = charSequence.toString();
+                if (charString.isEmpty()) {
+                    mValuesFiltered = mValues;
+                } else {
+                    List<AlumnoRes> filteredList = new ArrayList<>();
+                    for (AlumnoRes row : mValues) {
+
+                        // name match condition. this might differ depending on your requirement
+                        // here we are looking for name or phone number match
+                        if (row.getNombre().toLowerCase().contains(charString.toLowerCase()) || row.getEmpresa().contains(charSequence)) {
+                            filteredList.add(row);
+                        }
+                    }
+
+                    mValuesFiltered = filteredList;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = mValuesFiltered;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                mValuesFiltered = (ArrayList<AlumnoRes>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
+
+
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;

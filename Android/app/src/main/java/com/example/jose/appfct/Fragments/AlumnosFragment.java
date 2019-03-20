@@ -49,6 +49,11 @@ public class AlumnosFragment extends Fragment {
     public AlumnosFragment() {
     }
 
+
+    public MyAlumnoRecyclerViewAdapter getAdapter(){
+        return adapter;
+    }
+
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
     public static AlumnosFragment newInstance(int columnCount) {

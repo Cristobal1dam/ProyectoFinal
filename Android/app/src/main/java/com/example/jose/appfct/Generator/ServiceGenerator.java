@@ -14,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceGenerator {
 
-    private static final String BASE_URL = "https://appfctv3.herokuapp.com/";
+    private static final String BASE_URL = "https://appfctv4.herokuapp.com/";
     public static String MASTER_KEY = "q1VWdW06rgwqIicOKnebJeAjRZX3nEll";
 
     //hzasFUC4txHXVHHWvjkR2R7UxQ6kzBlw

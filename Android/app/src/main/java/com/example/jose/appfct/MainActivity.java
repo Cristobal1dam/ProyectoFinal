@@ -17,6 +17,8 @@ import android.widget.Filter;
 import android.widget.SearchView.OnQueryTextListener;
 import android.widget.Toolbar;
 
+import com.example.jose.appfct.Dialogs.EliminarVisitaDialogFragment;
+import com.example.jose.appfct.Dialogs.UpdatePassDialogFragment;
 import com.example.jose.appfct.Fragments.AlumnosFragment;
 import com.example.jose.appfct.Generator.UtilToken;
 import com.example.jose.appfct.Generator.UtilUser;
@@ -42,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements AlumnosFragment.O
                 .replace(R.id.contenedor_main,new AlumnosFragment())
                 .commit();
 
-        getSupportActionBar().setTitle(UtilUser.getNombre(MainActivity.this));
+        getSupportActionBar().setTitle("Lista Alumnos");
 
     }
 
@@ -50,9 +52,20 @@ public class MainActivity extends AppCompatActivity implements AlumnosFragment.O
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_lista, menu);
         MenuItem menuItem = menu.findItem(R.id.action_search);
+        MenuItem updateItem = menu.findItem(R.id.action_update_pass);
+        updateItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                UpdatePassDialogFragment dialogoUpdatePass = UpdatePassDialogFragment.newInstance();
+                dialogoUpdatePass.show(((FragmentActivity) MainActivity.this).getSupportFragmentManager(), "dialog");
+                return true;
+            }
+        });
         SearchView searchView = (SearchView) menuItem.getActionView();
         searchView.setOnQueryTextListener(this);
+
         return true;
+
     }
 
     @Override
@@ -125,6 +138,7 @@ public class MainActivity extends AppCompatActivity implements AlumnosFragment.O
         }else
 
             startActivity(new Intent(MainActivity.this, SessionActivity.class));
+
 
     }
 }

@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
     <item
+        android:id="@+id/action_update_pass"
+        android:title="UpdatePass"
+        app:showAsAction="always"
+
+        android:icon="@drawable/ic_lock_outline_white_24dp"/>
+    <item
         android:id="@+id/action_search"
         android:icon="@drawable/ic_search_black_24dp"
         android:orderInCategory="100"

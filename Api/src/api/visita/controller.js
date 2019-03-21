@@ -113,7 +113,8 @@ export const createVisita = async ({ bodymen: { body }, params }, res, next) =>{
 export const realizadaVisita = async ({params},res, next) => {
 var visitaVar
 var alumnoVar
-var fechaVar = ""
+var fechaVar = "";
+var todasRealizadas = true;
   await Visita.findById(params.id)
   .then(notFound(res))
   .then((visita) => {
@@ -135,6 +136,15 @@ var fechaVar = ""
                 alumno.visitas.push(visitaVar)
               }
               if(alumno.visitas.length != 0){
+                for (let index = 0; index < alumno.visitas.length; index++) {
+                  const element = alumno.visitas[index];
+                  if(!element.realizada){
+                    todasRealizadas = false
+                  }
+                  
+                }
+              }
+              if(alumno.visitas.length != 0 && !todasRealizadas){
                 fechaVar = alumno.visitas[0].fecha
               }
           }
@@ -148,6 +158,7 @@ var fechaVar = ""
   .then(alumnoRes => {
       if(visitaVar.realizada){
         if(alumnoRes.visita.getTime() === visitaVar.fecha.getTime()){
+          
             alumnoRes.visita = fechaVar
         }
       }else{

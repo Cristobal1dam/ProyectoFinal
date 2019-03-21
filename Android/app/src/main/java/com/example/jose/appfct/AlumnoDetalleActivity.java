@@ -1,5 +1,6 @@
 package com.example.jose.appfct;
 
+import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.net.Uri;
@@ -124,6 +125,7 @@ public class AlumnoDetalleActivity extends AppCompatActivity {
                 i.putExtra("id", idAlumno );
                 i.putExtra("nombre", tvNombreAlumno.getText().toString());
                 AlumnoDetalleActivity.this.startActivity(i);
+
                 break;
         }
         return true;
@@ -182,5 +184,10 @@ public class AlumnoDetalleActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void onBackPressed() {
+        startActivity(new Intent(AlumnoDetalleActivity.this, MainActivity.class));
+        overridePendingTransition( R.anim.fadein, R.anim.fadeout);
     }
 }

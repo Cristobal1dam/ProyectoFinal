@@ -19,4 +19,7 @@
     <string name="dialog_title">Cerrar sesión</string>
     <string name="ok">Aceptar</string>
     <string name="cancel">Cancelar</string>
+    <string name="Password">Contraseña</string>
+    <string name="NewPass">Nueva contraseña</string>
+    <string name="RepeatPass">Repite tu contraseña</string>
 </resources>

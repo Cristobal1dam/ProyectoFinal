@@ -1,5 +1,6 @@
 package com.example.jose.appfct.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -89,7 +90,13 @@ public class MyAlumnoRecyclerViewAdapter extends RecyclerView.Adapter<MyAlumnoRe
             public void onClick(View v) {
                 Intent i = new Intent(contexto, AlumnoDetalleActivity.class);
                 i.putExtra("id", holder.mItem.getAlumnoid() );
+
                 contexto.startActivity(i);
+                ((Activity)contexto).overridePendingTransition( R.anim.fadein, R.anim.fadeout);
+
+                ((Activity)contexto).finish();
+
+
             }
         });
 

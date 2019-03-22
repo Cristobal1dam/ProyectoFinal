@@ -5,6 +5,7 @@ import { TutorService } from '../services/tutor.service';
 import { AddTutorDialogComponent } from '../add-tutor-dialog/add-tutor-dialog.component';
 import { DeleteTutorDialogComponent } from '../delete-tutor-dialog/delete-tutor-dialog.component';
 import { EmpresaDto } from 'src/app/dto/EmpresaDto.dto';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-tutores',
@@ -20,9 +21,13 @@ export class ListTutoresComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private tutorService: TutorService,
-              public dialog: MatDialog) { }
+              public dialog: MatDialog,
+              private router: Router) { }
 
   ngOnInit() {
+    if(localStorage.getItem('token') == null){
+      this.router.navigate ( [ '/' ] );
+    }
     this.getTutorList();
   }
 

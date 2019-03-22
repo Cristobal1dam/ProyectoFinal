@@ -25,6 +25,9 @@ export class ListUsusariosComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
+    if(localStorage.getItem('token') == null){
+      this.router.navigate ( [ '/' ] );
+    }
     this.getUsuariosList()
   }
 

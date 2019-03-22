@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { MatIconModule, MatCardModule, MatButtonModule, MatListModule, MatProgressBarModule, MatMenuModule, MatTableModule, MatSortModule, MatPaginatorModule, MatInputModule, MatDialogModule, MatSelectModule } from '@angular/material';
+import { MatIconModule, MatCardModule, MatButtonModule, MatListModule, MatProgressBarModule, MatMenuModule, MatTableModule, MatSortModule, MatPaginatorModule, MatInputModule, MatDialogModule, MatSelectModule, MatSnackBarModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { DashboardComponent } from './dashboard.component';
@@ -39,7 +39,8 @@ import { DeleteAlumnoDialogComponent } from './delete-alumno-dialog/delete-alumn
     MatFormFieldModule,
     MatInputModule,
     MatDialogModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSnackBarModule
   ],
   entryComponents: [
     AddEmpresaDialogComponent,

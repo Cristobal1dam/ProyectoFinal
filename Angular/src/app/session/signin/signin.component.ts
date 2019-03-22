@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { LoginDto } from 'src/app/dto/LoginDto.dto';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-signin',
@@ -14,7 +15,8 @@ export class SigninComponent implements OnInit {
   public form: FormGroup;
   constructor(private fb: FormBuilder,
      private router: Router,
-     private loginService: AuthService) {}
+     private loginService: AuthService,
+     public snackBar: MatSnackBar) {}
 
   ngOnInit() {
     localStorage.clear();
@@ -37,6 +39,10 @@ export class SigninComponent implements OnInit {
       this.router.navigate ( [ '/empresas' ] );
 
     }, error => {
+      this.snackBar.open('Error en el login', 'close', {
+        duration: 3000,
+        verticalPosition: 'top'
+      });
       console.log('Error en petición de login');
       this.router.navigate ( [ '/' ] );
     }

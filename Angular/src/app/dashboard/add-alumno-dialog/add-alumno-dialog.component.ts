@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { AlumnoService } from '../services/alumno.service';
 import { TutorService } from '../services/tutor.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { AlumnoDto } from 'src/app/dto/AlumnoDto.dto';
 import { TutorResponse } from 'src/app/interfaces/TutorResponse.interface';
 import { TutorDispResponse } from 'src/app/interfaces/TutorDispResponse.interface';
@@ -15,6 +15,7 @@ import { TutorDtoDisp } from 'src/app/dto/TutorDtoDisp.dto';
   styleUrls: ['./add-alumno-dialog.component.scss']
 })
 export class AddAlumnoDialogComponent implements OnInit {
+  crearEditarString: String;
   alumno: AlumnoDto;
   alumnoEdit: OneAlumnoResponse;
   tutores: TutorDispResponse[];
@@ -25,14 +26,18 @@ export class AddAlumnoDialogComponent implements OnInit {
               private fb: FormBuilder,
               private alumnoService: AlumnoService,
               private tutorService: TutorService,
+              public snackBar: MatSnackBar,
               @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
 
 
+
     if(this.data.add){
+      this.crearEditarString = "Crear"
     this.getAllTutoresDispAdd()
   }else{
+    this.crearEditarString = "Editar"
     this.getAlumnoEdit()
   }
     
@@ -56,6 +61,7 @@ export class AddAlumnoDialogComponent implements OnInit {
   }
 
   onSubmit(){
+    if(this.data.add){
     this.alumno = new AlumnoDto(this.form.controls['nombre'].value,
                                   this.form.controls['email'].value,
                                   this.form.controls['telefono'].value,
@@ -63,7 +69,15 @@ export class AddAlumnoDialogComponent implements OnInit {
 
     this.alumnoService.create(this.data.id,this.alumno).subscribe(alumnoResp => {
         this.dialogRef.close();
+      }, error => {
+        this.snackBar.open('Error al crear alumno', 'Close', {
+          duration: 3000,
+          verticalPosition: 'top'
+        });
       });
+    }else{
+      
+    }
   }
 
   getAlumnoEdit(){

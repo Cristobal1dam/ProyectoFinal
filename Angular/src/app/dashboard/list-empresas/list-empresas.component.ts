@@ -4,6 +4,7 @@ import { EmpresaResponse } from 'src/app/interfaces/EmpresaResponse.interface';
 import { EmpresaService } from '../services/empresa.service';
 import { AddEmpresaDialogComponent } from '../add-empresa-dialog/add-empresa-dialog.component';
 import { DeleteEmpresaDialogComponent } from '../delete-empresa-dialog/delete-empresa-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-empresas',
@@ -20,9 +21,13 @@ export class ListEmpresasComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private empresaService: EmpresaService,
-              public dialog: MatDialog) { }
+              public dialog: MatDialog,
+              private router: Router) { }
 
   ngOnInit() {
+    if(localStorage.getItem('token') == null){
+      this.router.navigate ( [ '/' ] );
+    }
     this.getEmpresasList()
    
   }

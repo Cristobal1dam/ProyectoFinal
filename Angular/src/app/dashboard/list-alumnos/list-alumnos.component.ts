@@ -27,9 +27,13 @@ export class ListAlumnosComponent implements OnInit {
 
   constructor(private usuarioService: UsuariosService,
               public dialog: MatDialog,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit() {
+    if(localStorage.getItem('token') == null){
+      this.router.navigate ( [ '/' ] );
+    }
     this.getAlumnosList()
   }
 

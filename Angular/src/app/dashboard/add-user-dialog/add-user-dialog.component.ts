@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { UserDto } from 'src/app/dto/UserDto.dto';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { CustomValidators } from 'ng2-validation';
 import { UsuariosService } from '../services/usuarios.service';
 
@@ -20,7 +20,8 @@ export class AddUserDialogComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<AddUserDialogComponent>,
               private fb: FormBuilder,
-              private usuarioService: UsuariosService) { }
+              private usuarioService: UsuariosService,
+              public snackBar: MatSnackBar) { }
 
   ngOnInit() {
   
@@ -46,6 +47,11 @@ export class AddUserDialogComponent implements OnInit {
                            
     this.usuarioService.create(this.usuario).subscribe(usuarioResp => {
         this.dialogRef.close();
+      }, error => {
+        this.snackBar.open('Error al crear usuario', 'Close', {
+          duration: 3000,
+          verticalPosition: 'top'
+        });
       });
    
   }

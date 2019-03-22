@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { TutorDto } from 'src/app/dto/TutorDto.dto';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { EmpresaService } from '../services/empresa.service';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { TutorService } from '../services/tutor.service';
 import { EmpresaResponse } from 'src/app/interfaces/EmpresaResponse.interface';
 
@@ -12,6 +12,7 @@ import { EmpresaResponse } from 'src/app/interfaces/EmpresaResponse.interface';
   styleUrls: ['./add-tutor-dialog.component.scss']
 })
 export class AddTutorDialogComponent implements OnInit {
+  crearEditarString: string;
   tutor: TutorDto;
   empresas: EmpresaResponse[];
   public form: FormGroup;
@@ -20,10 +21,12 @@ export class AddTutorDialogComponent implements OnInit {
               public dialogRef: MatDialogRef<AddTutorDialogComponent>,
               private fb: FormBuilder,
               private empresaService: EmpresaService,
-              private tutorService: TutorService) { }
+              private tutorService: TutorService,
+              public snackBar: MatSnackBar) { }
 
   ngOnInit() {
     if(this.data.add){
+      this.crearEditarString = "Crear"
     this.form = this.fb.group ( {
       nombre: ['' , Validators.compose ( [ Validators.required ] )],
       email: ['' , Validators.compose ( [ Validators.required ] )],
@@ -32,6 +35,7 @@ export class AddTutorDialogComponent implements OnInit {
 
     } );
   }else{
+    this.crearEditarString = "Editar"
     this.form = this.fb.group ( {
       nombre: [this.data.nombre , Validators.compose ( [ Validators.required ] )],
       email: [this.data.email , Validators.compose ( [ Validators.required ] )],
@@ -57,10 +61,20 @@ export class AddTutorDialogComponent implements OnInit {
     if(this.data.add){
     this.tutorService.create(this.tutor).subscribe(tutorResp => {
         this.dialogRef.close();
+      }, error => {
+        this.snackBar.open('Error al crear tutor', 'Close', {
+          duration: 3000,
+          verticalPosition: 'top'
+        });
       });
     }else{
     this.tutorService.edit(this.data.id, this.tutor).subscribe(tutorResp => {
       this.dialogRef.close();
+    }, error => {
+      this.snackBar.open('Error al editar tutor', 'Close', {
+        duration: 3000,
+        verticalPosition: 'top'
+      });
     });
     }
   }
